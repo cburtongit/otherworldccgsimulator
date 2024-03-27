@@ -28,7 +28,7 @@ public class Card : MonoBehaviour
     }
 
     // What does that card do on destruction
-    void Destroy() { }
+    void DestroyCard() { }
     void Counter() {
         isCountered = true;
     }
