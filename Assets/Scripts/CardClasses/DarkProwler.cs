@@ -5,14 +5,34 @@ using UnityEngine;
 
 public class DarkProwler : MonsterCard
 {
-    
     private bool effectSpGained; // flag that determines if the attack has alread been doubled.
     
     // Start is called before the first frame update
     void Start()
     {
-        summon();
+        // card stats
+        cardName = "Dark Prowler";
+        originalName = "Dark Prowler";
         
+        alignments.Add("dark");
+        alignments.Add("beast");
+        originalAlignments.Add("dark");
+        originalAlignments.Add("beast");
+
+        rpCost = 2;
+        originalRpCost = 2;
+
+        sp = 125;
+        originalSp = 125;
+
+        isDestroyBattleImmune = false;
+        isDestroyEffectImmune = false;
+        isSacrificeable = false;
+        isCountered = false;
+
+        isTethered = false;
+        canAttack = true;
+        isAttackable = true;
     }
 
     // Update is called once per frame
@@ -20,16 +40,16 @@ public class DarkProwler : MonsterCard
     {
         if (!isCountered) {
             if (!effectSpGained) {
-             effect();
+             Effect();
             }
         }
     }
 
-    void summon() {
-        effectSpGained = false;   
+    void Summon() {
+        effectSpGained = false;  
     }
     
-    void effect() {
+    void Effect() {
         // EFFECT TEXT: (While you control no other monsters) This card’s original SP is doubled.
         
         // if (Controller.Monsters[].length < 2) and (!effectSpGained) {

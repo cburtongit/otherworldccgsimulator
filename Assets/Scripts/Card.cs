@@ -7,9 +7,9 @@ public class Card : MonoBehaviour
     Player controller, owner; // Player who owns card (at start of game)
     
     // Card in-game Stats. original versions must be stored as are used in-game
-    string cardName, originalName;
-    List<string> alignments, originalAlignments;
-    int rpCost, originalRpCost;
+    public string cardName, originalName;
+    public List<string> alignments, originalAlignments;
+    public int rpCost, originalRpCost;
     // public Sprite artwork = GetComponent<Sprite>();
 
     /* Status of card*/
@@ -28,9 +28,18 @@ public class Card : MonoBehaviour
     }
 
     // What does that card do on destruction
-    void DestroyCard() { }
-    void Counter() {
+    void DestroyCard() 
+    {
+
+    }
+    void Counter()
+    {
         isCountered = true;
+    }
+
+    void modifyRP(int change)
+    {
+        rpCost += change;
     }
 
 }
@@ -53,7 +62,6 @@ public class MonsterCard : Card
     void modifySP(int change) {
         sp += change;
     }
-
 }
 
 public class SupportCard : Card
@@ -66,9 +74,13 @@ public class SupportCard : Card
     void Start() {}
     void Update() {}
 
+    void modifyFastRp(int change)
+    {
+        fastRp += change;
+    }
     // called when a card is activated
-    void activate() {}
-    void effect() {}
+    // void activate() {}
+    // void effect() {}
 
 }
 
