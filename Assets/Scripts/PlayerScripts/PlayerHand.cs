@@ -45,5 +45,5 @@ public class PlayerHand : MonoBehaviour
             hand[k] = hand[n];  
             hand[n] = value;
         }
-    } 
+    }
 }
