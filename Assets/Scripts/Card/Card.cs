@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
+using Unity.VisualScripting;
+using UnityEditor.UI;
 using UnityEngine;
 
 public class Card : MonoBehaviour
@@ -50,7 +53,7 @@ public class Card : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.transform.localScale = new UnityEngine.Vector3(0.1f, 0.1f); 
     }
 
     // Update is called once per frame
