@@ -21,15 +21,8 @@ public class MonsterZone : MonoBehaviour
         
     }
 
-    void OnMouseEnter()
+    /*void OnMouseEnter()
     {
         Debug.Log("Monster Zone " + zoneId + " hovered over.");
-    }
-
-    void OnMouseDown()
-    {
-        Debug.Log("Monster Zone " + zoneId + " clicked.");
-        Debug.Log("Occupied: " + occupied);
-        Debug.Log("Card: " + mons);
-    }
+    }*/
 }

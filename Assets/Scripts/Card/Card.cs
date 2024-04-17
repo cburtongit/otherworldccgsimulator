@@ -39,7 +39,7 @@ public class Card : MonoBehaviour
         }
     */
    
-    Player controller, owner; // Player who owns card (at start of game)
+    public Player controller, owner; // Player who owns card (at start of game)
     
     // Card in-game Stats. original versions must be stored as are used in-game
     public string cardName, originalName;
@@ -47,25 +47,12 @@ public class Card : MonoBehaviour
     public int rpCost, originalRpCost;
     // public Sprite artwork = GetComponent<Sprite>();
 
-    /* Status of card*/
+    /* --- CARD STATUSES ---*/
     public bool isDestroyBattleImmune, isDestroyEffectImmune, isSacrificeable, isCountered;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        this.transform.localScale = new UnityEngine.Vector3(0.1f, 0.1f); 
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    // What does that card do on destruction
     public void DestroyCard(bool toVoid = false) {}
     public void DiscardCard(bool toVoid = false) {}
-    public void CounterCard()
+    public void Counter()
     {
         isCountered = true;
     }
@@ -74,64 +61,4 @@ public class Card : MonoBehaviour
     {
         rpCost += change;
     }
-}
-
-public class MonsterCard : Card
-{
-
-    public int sp, originalSp;
-    public bool isTethered, canAttack, isAttackable;
-
-    void Start() 
-    {
-        // cardType = 0;
-    }
-
-    void Update() { }
-
-    void Attack() {}
-    void Summon() {}
-    void ModifySP(int change) {
-        sp += change;
-    }
-}
-
-public class SupportCard : Card
-{
-
-    public bool staysOnField; // 0 = no, 1 = yes
-    public int fastRp, originalFastRp;
-    
-    // Unity methods
-    void Start() {}
-    void Update() {}
-
-    void modifyFastRp(int change)
-    {
-        fastRp += change;
-    }
-    // called when a card is activated
-    // void activate() {}
-    // void effect() {}
-
-}
-
-public class TetherSupportCard : SupportCard
-{
-
-    public MonsterCard target; // the monster card that this card is tethered to
-    
-    void Start() {
-        staysOnField = true;
-    }
-
-    void Update() {}
-}
-
-public class FixedSupportCard : SupportCard
-{
-    void Start() {
-        staysOnField = true;
-    }
-    void Update() {}
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuTest : MonoBehaviour
+public class MenuFunctions : MonoBehaviour
 {
     public int stage = 0;
 
@@ -19,25 +19,8 @@ public class MenuTest : MonoBehaviour
 
     public void NextStage()
     {
-        if (stage >= 2) {
-            stage = 0;
-        } else {
-            stage++;
-        }
-        switch (stage) {
-            case 0:
-                Debug.Log("DRAW STAGE (0)");
-                break;
-            case 1:
-                Debug.Log("SETUP STAGE (1)");
-                break;
-            case 2:
-                Debug.Log("COMBAT STAGE (2)");
-                break;
-            default:
-                Debug.Log("Error: Stage var not valid!");
-                break;
-        }
+        if (stage >= 2) {stage = 0;} 
+        else {stage++;}
     }
 
     public void ShowHand()
@@ -93,5 +76,10 @@ public class MenuTest : MonoBehaviour
     public void SurrenderGame()
     {
         Debug.Log("Surrendered.");
+    }
+
+    public void ShowHandView(GameObject hand)
+    {
+        hand.SetActive(!hand.activeSelf);
     }
 }
