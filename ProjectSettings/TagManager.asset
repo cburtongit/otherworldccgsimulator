@@ -6,6 +6,7 @@ TagManager:
   tags:
   - handView
   - monsterZone
+  - hoverMenu
   layers:
   - Default
   - TransparentFX

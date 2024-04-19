@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using Microsoft.Unity.VisualStudio.Editor;
 using Unity.VisualScripting;
 using UnityEditor.UI;
 using UnityEngine;
@@ -40,25 +41,17 @@ public class Card : MonoBehaviour
     */
    
     public Player controller, owner; // Player who owns card (at start of game)
-    
-    // Card in-game Stats. original versions must be stored as are used in-game
     public string cardName, originalName;
-    public List<string> alignments, originalAlignments;
-    public int rpCost, originalRpCost;
-    // public Sprite artwork = GetComponent<Sprite>();
+    public int rPCost, originalRPCost;
 
+    public List<string> alignments = new List<string>();
+    public List<string> originalAlignments = new List<string>();
+    public string serial;
     /* --- CARD STATUSES ---*/
-    public bool isDestroyBattleImmune, isDestroyEffectImmune, isSacrificeable, isCountered;
+    public bool isDestroyBattleImmune, isDestroyEffectImmune, isCountered;
 
     public void DestroyCard(bool toVoid = false) {}
     public void DiscardCard(bool toVoid = false) {}
-    public void Counter()
-    {
-        isCountered = true;
-    }
-
-    public void modifyRP(int change)
-    {
-        rpCost += change;
-    }
+    public void Counter() {isCountered = true;}
+    public void modifyRP(int change) {rPCost += change;}
 }

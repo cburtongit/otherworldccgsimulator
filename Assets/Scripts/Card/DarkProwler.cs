@@ -19,11 +19,11 @@ public class DarkProwler : MonsterCard
         originalAlignments.Add("dark");
         originalAlignments.Add("beast");
 
-        rpCost = 2;
-        originalRpCost = 2;
+        rPCost = 2;
+        originalRPCost = 2;
 
-        sp = 125;
-        originalSp = 125;
+        sP = 125;
+        originalSP = 125;
 
         isDestroyBattleImmune = false;
         isDestroyEffectImmune = false;
@@ -46,7 +46,7 @@ public class DarkProwler : MonsterCard
     }
 
     void Summon() {
-        effectSpGained = false;  
+        effectSpGained = false;
     }
     
     void Effect() {

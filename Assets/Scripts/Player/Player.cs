@@ -22,16 +22,44 @@ public class Player : MonoBehaviour
     public int rp;
 
     // Player card locations.
-    public List<Card> hand = new List<Card>();
-    public List<Card> deck = new List<Card>();
-    public List<Card> grave = new List<Card>();
-    public List<Card> theVoid = new List<Card>();
+    public List<GameObject> hand = new List<GameObject>();
+    public List<GameObject> deck = new List<GameObject>();
+    public List<GameObject> grave = new List<GameObject>();
+    public List<GameObject> theVoid = new List<GameObject>();
 
     
     // Start is called before the first frame update
     void Start()
     {
-        hp = 1000;
+        /* TESTING */
+        /* hp = 1000;
+        Sprite testPic = Resources.Load<Sprite>("Images/artwork/DarkProwler");
+        for (int i = 0; i < 10; i++) {
+            // create new object, add components
+            GameObject card = new GameObject();
+            card.name = "Card " + i;
+            card.AddComponent<RectTransform>();
+            card.AddComponent<MonsterCard>();
+            card.AddComponent<SpriteRenderer>();
+            // ASSIGN STATS 
+            card.GetComponent<Card>().controller = card.GetComponent<Card>().owner = this;
+            card.GetComponent<MonsterCard>().cardName = card.GetComponent<MonsterCard>().originalName = "Dark Prowler " + i;
+
+            card.GetComponent<MonsterCard>().rPCost = card.GetComponent<MonsterCard>().originalRPCost = 2;
+            
+            card.GetComponent<MonsterCard>().alignments.Add("Dark");
+            card.GetComponent<MonsterCard>().alignments.Add("Beast");
+            card.GetComponent<MonsterCard>().originalAlignments = card.GetComponent<MonsterCard>().alignments;
+
+            card.GetComponent<MonsterCard>().serial = "00000" + i;
+
+            card.GetComponent<MonsterCard>().isDestroyBattleImmune = card.GetComponent<MonsterCard>().isDestroyEffectImmune = card.GetComponent<MonsterCard>().isCountered = card.GetComponent<MonsterCard>().isTethered = false;
+
+            card.GetComponent<SpriteRenderer>().sprite = testPic;
+
+            card.SetActive(false);
+            deck.Add(card);
+        } */
     }
 
     // Update is called once per frame
@@ -46,13 +74,15 @@ public class Player : MonoBehaviour
     public void DrawCard(int numOfCards)
     {
         int debug_j = 0;
-        for (int i = 0; i < numOfCards; i++) {
-            Debug.Log("DRAWING: " + deck[0]);
-            hand.Add(deck[0]);
-            deck.RemoveAt(0);
-            Debug.Log("DRAW successful.");
-            debug_j++;
-        }
+        if (deck.Count > 0) { 
+            for (int i = 0; i < numOfCards; i++) {
+                Debug.Log("DRAWING: " + deck[0]);
+                hand.Add(deck[0]);
+                deck.RemoveAt(0);
+                Debug.Log("DRAW successful.");
+                debug_j++;
+            }
+        } else {Debug.Log("Deck is empty!"); }
         Debug.Log(debug_j + " card(s) drawn.");
         /*for (int i = 0; i < numOfCards; i++) { // draws from bottom of the deck
             Debug.Log("Attempting to draw card (from bottom of deck): " + deck[0]);
@@ -62,12 +92,12 @@ public class Player : MonoBehaviour
         }*/
     }
 
-    public void DiscardCard(Card target)
+    public void DiscardCard(GameObject target)
     {
-        foreach (Card card in hand) {
+        foreach (GameObject card in hand) {
             Debug.Log("");
             if (card==target) {
-                Debug.Log("DISCARDING: " + card.cardName);
+                Debug.Log("DISCARDING: " + card.GetComponent<MonsterCard>().cardName);
                 grave.Add(card);
                 hand.Remove(card);
                 Debug.Log("DISCARD successful");
@@ -75,11 +105,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void voidFromGrave(Card target)
+    public void voidFromGrave(GameObject target)
     {
-        foreach (Card card in grave) {
+        foreach (GameObject card in grave) {
             if (card == target) {
-                Debug.Log("VOIDING: " + card.cardName);
+                Debug.Log("VOIDING: " + card.GetComponent<MonsterCard>().cardName);
                 theVoid.Add(card);
                 grave.Remove(card);
                 Debug.Log("VOID success");

@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,32 +26,44 @@ public class MenuFunctions : MonoBehaviour
         else {stage++;}
     }
 
-    public void ShowHand()
+    public void ShowHand(Player player)
     {
+        ShowCardList(player.hand);
         // Unhide/Create UI panel
         // Populate with card images from card objs in player.hand list
-        Debug.Log("Hand.");
+        String cardsInHand = "Cards in hand: ";
+        foreach(GameObject card in player.hand) {
+            cardsInHand += card.GetComponent<Card>().cardName += ", ";
+        }
+        Debug.Log(cardsInHand);
     }
 
-    public void ShowDeck()
+    public void ShowDeck(Player player)
     {
         // Unhide/Create UI panel
         // Populate with card images from card objs in player.deck list
-        Debug.Log("Deck.");
+        ShowCardList(player.deck);
     }
 
-    public void ShowGrave()
+    public void ShowGrave(Player player)
     {
         // Unhide/Create UI panel
         // Populate with card images from card objs in player.grave list
-        Debug.Log("Grave.");
+        ShowCardList(player.grave);
     }
 
-    public void ShowTheVoid()
+    public void ShowTheVoid(Player player)
     {
         // Unhide/Create UI panel
         // Populate with card images from card objs in player.theVoid list
-        Debug.Log("Void.");
+        ShowCardList(player.theVoid);
+    }
+
+    public void ShowCardList(List<GameObject> list)
+    {
+        foreach(GameObject card in list) {
+            Debug.Log(card.GetComponent<Card>().cardName);
+        }
     }
 
     public void CheckHP()
@@ -81,5 +96,9 @@ public class MenuFunctions : MonoBehaviour
     public void ShowHandView(GameObject hand)
     {
         hand.SetActive(!hand.activeSelf);
+        GameObject[] hoverItems = GameObject.FindGameObjectsWithTag("hoverMenu");
+        foreach (GameObject item in hoverItems) {
+            item.SetActive(false);
+        }
     }
 }
