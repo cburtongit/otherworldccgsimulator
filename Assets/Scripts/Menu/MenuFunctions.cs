@@ -1,13 +1,34 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Numerics;
+using Microsoft.Unity.VisualStudio.Editor;
+using Unity.VisualScripting;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuFunctions : MonoBehaviour
 {
     public int stage = 0;
+    public GameObject gameMaster;
+    public Player player, opp;
+    public GameObject pHealthManaDisplay, cardView;
 
+    public void Start()
+    {
+        player = gameMaster.GetComponent<GameMaster>().p1.GetComponent<Player>();
+        opp = gameMaster.GetComponent<GameMaster>().p2.GetComponent<Player>();
+    }
+    
+    public void Update()
+    {
+        //pHealthManaDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = "HP: " + player.hp + " | RP: " + player.rp;   
+    }
+    
+    public void DisplayHealthMana(Player player)
+    {
+        
+    }
     public void GoToScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
@@ -28,42 +49,55 @@ public class MenuFunctions : MonoBehaviour
 
     public void ShowHand(Player player)
     {
-        ShowCardList(player.hand);
-        // Unhide/Create UI panel
-        // Populate with card images from card objs in player.hand list
-        String cardsInHand = "Cards in hand: ";
-        foreach(GameObject card in player.hand) {
-            cardsInHand += card.GetComponent<Card>().cardName += ", ";
+        List<GameObject> hand = new List<GameObject>();
+        foreach (GameObject card in player.hand) {
+            GameObject copy = Instantiate(card);
+            Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
+            hand.Add(copy);
         }
-        Debug.Log(cardsInHand);
+        ShowCardViewPanel(hand);
     }
 
     public void ShowDeck(Player player)
     {
-        // Unhide/Create UI panel
-        // Populate with card images from card objs in player.deck list
-        ShowCardList(player.deck);
+        List<GameObject> deck = new List<GameObject>();
+        foreach (GameObject card in player.deck) {
+            GameObject copy = Instantiate(card);
+            Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
+            deck.Add(copy);
+        }
+        ShowCardViewPanel(deck);
     }
 
     public void ShowGrave(Player player)
     {
-        // Unhide/Create UI panel
-        // Populate with card images from card objs in player.grave list
-        ShowCardList(player.grave);
+        List<GameObject> grave = new List<GameObject>();
+        foreach (GameObject card in player.grave) {
+            GameObject copy = Instantiate(card);
+            Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
+            grave.Add(copy);
+        }
+        ShowCardViewPanel(grave);
     }
 
     public void ShowTheVoid(Player player)
     {
-        // Unhide/Create UI panel
-        // Populate with card images from card objs in player.theVoid list
-        ShowCardList(player.theVoid);
+        List<GameObject> daVoid = new List<GameObject>();
+        foreach (GameObject card in player.theVoid) {
+            GameObject copy = Instantiate(card);
+            Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
+            daVoid.Add(copy);
+        }
+        ShowCardViewPanel(daVoid);
     }
 
     public void ShowCardList(List<GameObject> list)
     {
+        String cardsDebug = "Cards in hand: ";
         foreach(GameObject card in list) {
-            Debug.Log(card.GetComponent<Card>().cardName);
+            cardsDebug += card.GetComponent<Card>().cardName += ", ";
         }
+        Debug.Log(cardsDebug);
     }
 
     public void CheckHP()
@@ -76,7 +110,6 @@ public class MenuFunctions : MonoBehaviour
             i++;
         }
     }
-
     public void CheckRP()
     {
         GameObject[] Players;
@@ -86,19 +119,24 @@ public class MenuFunctions : MonoBehaviour
             Debug.Log("Player " + i + " RP: " + player.GetComponent<Player>().rp);
             i++;
         }
-    }
-    
+    }  
     public void SurrenderGame()
     {
         Debug.Log("Surrendered.");
     }
-
-    public void ShowHandView(GameObject hand)
+    public void ShowCardViewPanel(List<GameObject> cards)
     {
-        hand.SetActive(!hand.activeSelf);
-        GameObject[] hoverItems = GameObject.FindGameObjectsWithTag("hoverMenu");
-        foreach (GameObject item in hoverItems) {
-            item.SetActive(false);
+        // Instantiate a new panel GameObject
+        //GameObject viewPanel = new GameObject("Panel");
+        GameObject view = Instantiate(cardView, new UnityEngine.Vector3(0, 0, 0), UnityEngine.Quaternion.identity);
+        
+        view.transform.SetParent(this.transform);
+        view.transform.localScale = new UnityEngine.Vector3(1f, 1f, 1f);
+        foreach (GameObject card in cards) {
+            card.transform.SetParent(view.GetComponent<CardView>().content.transform);
+            card.transform.localScale = new UnityEngine.Vector3(1f,1f,1f);
+            card.GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(200, 280);
+            card.SetActive(true);
         }
     }
 }

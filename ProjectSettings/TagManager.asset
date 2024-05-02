@@ -7,6 +7,7 @@ TagManager:
   - handView
   - monsterZone
   - hoverMenu
+  - CardViewContent
   layers:
   - Default
   - TransparentFX

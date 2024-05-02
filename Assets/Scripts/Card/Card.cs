@@ -46,7 +46,8 @@ public class Card : MonoBehaviour
 
     public List<string> alignments = new List<string>();
     public List<string> originalAlignments = new List<string>();
-    public string serial;
+    public string serial, cardText;
+    
     /* --- CARD STATUSES ---*/
     public bool isDestroyBattleImmune, isDestroyEffectImmune, isCountered;
 

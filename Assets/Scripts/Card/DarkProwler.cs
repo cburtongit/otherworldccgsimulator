@@ -13,6 +13,9 @@ public class DarkProwler : MonsterCard
         // card stats
         cardName = "Dark Prowler";
         originalName = "Dark Prowler";
+
+        serial = "000001";
+        cardText = "(While you control no other monsters) This card\'s original SP is doubled.";
         
         alignments.Add("dark");
         alignments.Add("beast");
