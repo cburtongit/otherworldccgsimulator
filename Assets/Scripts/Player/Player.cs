@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
 
     // in-game mechanic
     // topOfDeck is default as true, meaning it will add cards from the start of the array, false would add from bottom
-    public void DrawCard(int numOfCards)
+    public void DrawCard(int numOfCards = 1)
     {
         int debug_j = 0;
         if (deck.Count > 0) { 
@@ -85,5 +85,16 @@ public class Player : MonoBehaviour
     {
         hp += dmg;
         if (hp <= 0) { Debug.Log("Player " + playerId + " lost! Game Over"); } // Loss condition
+    }
+
+    public void ShuffleDeck()
+    {
+        for (int i = deck.Count-1; i > 0; i--)
+		{
+			int rnd = Random.Range(0,i);
+			GameObject temp = deck[i];
+			deck[i] = deck[rnd];
+			deck[rnd] = temp;
+		}
     }
 }

@@ -11,13 +11,16 @@ public class MenuFunctions : MonoBehaviour
 {
     public int stage = 0;
     public GameObject gameMaster;
-    public Player player, opp;
+    public GameObject player, op;
+    public Player playerScript, opScript;
     public GameObject pHealthManaDisplay, cardView;
 
     public void Start()
     {
-        player = gameMaster.GetComponent<GameMaster>().p1.GetComponent<Player>();
-        opp = gameMaster.GetComponent<GameMaster>().p2.GetComponent<Player>();
+        player = gameMaster.GetComponent<GameMaster>().p1;
+        op = gameMaster.GetComponent<GameMaster>().p2;
+        playerScript = player.GetComponent<Player>();
+        opScript = op.GetComponent<Player>();
     }
     
     public void Update()
@@ -47,10 +50,10 @@ public class MenuFunctions : MonoBehaviour
         else {stage++;}
     }
 
-    public void ShowHand(Player player)
+    public void ShowHand()
     {
         List<GameObject> hand = new List<GameObject>();
-        foreach (GameObject card in player.hand) {
+        foreach (GameObject card in playerScript.hand) {
             GameObject copy = Instantiate(card);
             Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
             hand.Add(copy);
@@ -58,10 +61,10 @@ public class MenuFunctions : MonoBehaviour
         ShowCardViewPanel(hand);
     }
 
-    public void ShowDeck(Player player)
+    public void ShowDeck()
     {
         List<GameObject> deck = new List<GameObject>();
-        foreach (GameObject card in player.deck) {
+        foreach (GameObject card in playerScript.deck) {
             GameObject copy = Instantiate(card);
             Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
             deck.Add(copy);
@@ -69,10 +72,10 @@ public class MenuFunctions : MonoBehaviour
         ShowCardViewPanel(deck);
     }
 
-    public void ShowGrave(Player player)
+    public void ShowGrave()
     {
         List<GameObject> grave = new List<GameObject>();
-        foreach (GameObject card in player.grave) {
+        foreach (GameObject card in playerScript.grave) {
             GameObject copy = Instantiate(card);
             Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
             grave.Add(copy);
@@ -80,45 +83,15 @@ public class MenuFunctions : MonoBehaviour
         ShowCardViewPanel(grave);
     }
 
-    public void ShowTheVoid(Player player)
+    public void ShowTheVoid()
     {
-        List<GameObject> daVoid = new List<GameObject>();
-        foreach (GameObject card in player.theVoid) {
+        List<GameObject> theVoid = new List<GameObject>();
+        foreach (GameObject card in playerScript.theVoid) {
             GameObject copy = Instantiate(card);
             Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
-            daVoid.Add(copy);
+            theVoid.Add(copy);
         }
-        ShowCardViewPanel(daVoid);
-    }
-
-    public void ShowCardList(List<GameObject> list)
-    {
-        String cardsDebug = "Cards in hand: ";
-        foreach(GameObject card in list) {
-            cardsDebug += card.GetComponent<Card>().cardName += ", ";
-        }
-        Debug.Log(cardsDebug);
-    }
-
-    public void CheckHP()
-    {
-        GameObject[] Players;
-        Players = GameObject.FindGameObjectsWithTag("Player");
-        int i = 0;
-        foreach (GameObject player in Players) {
-            Debug.Log("Player " + i + " HP: " + player.GetComponent<Player>().hp);
-            i++;
-        }
-    }
-    public void CheckRP()
-    {
-        GameObject[] Players;
-        Players = GameObject.FindGameObjectsWithTag("Player");
-        int i = 0;
-        foreach (GameObject player in Players) {
-            Debug.Log("Player " + i + " RP: " + player.GetComponent<Player>().rp);
-            i++;
-        }
+        ShowCardViewPanel(theVoid);
     }  
     public void SurrenderGame()
     {

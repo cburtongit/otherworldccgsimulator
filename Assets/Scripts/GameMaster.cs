@@ -12,16 +12,25 @@ public class GameMaster : MonoBehaviour
 {
 
     public GameObject p1, p2;
-    public int turnPlayer, turnStage;
-    public String[] deckTest;
+    Player p1script, p2script;
+    public int turnCount, turnStage;
+    public GameObject turnPlayer;
 
     void Start()
     {
-        p1.GetComponent<Player>().hp = p2.GetComponent<Player>().hp = 1000;
-        //GenPlayerDecks_debug(p1);
-        //GenPlayerDecks_debug(p2);
+        // easily store script components, cleans up code
+        p1script = p1.GetComponent<Player>();
+        p2script = p2.GetComponent<Player>();
+        // set HP
+        p1script.hp = p2script.hp = 1000;
+        // load & shuffle decks
         GenPlayerDecksFromFile_debug(p1, "Decks/demo_fire");
         GenPlayerDecksFromFile_debug(p2, "Decks/demo_fire");
+        p1script.ShuffleDeck();
+        p2script.ShuffleDeck();
+        // Draw starting hand
+        p1script.DrawCard(5);
+        p2script.DrawCard(5);
         
     }
 
@@ -65,7 +74,6 @@ public class GameMaster : MonoBehaviour
     public void GenPlayerDecksFromFile_debug(GameObject player, String deckname) {
         TextAsset deckFile = Resources.Load<TextAsset>(deckname);
         string[] deckList = deckFile.ToString().Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-        deckTest = deckList;
         foreach (String id in deckList) {
             // create game object, set as inactive, assign object name in editor
             GameObject card = new GameObject();
@@ -84,8 +92,6 @@ public class GameMaster : MonoBehaviour
             card.GetComponent<Card>().originalAlignments = card.GetComponent<Card>().alignments;
             card.GetComponent<Card>().serial = id;
             // add artwork from file
-            //String artPath = "Images/cards/" + id;
-            //Debug.Log(artPath);
             Sprite art = Resources.Load<Sprite>("Images/cards/" + id);
             card.GetComponent<SpriteRenderer>().sprite = card.GetComponent<UnityEngine.UI.Image>().sprite = art;
             // add to player's deck & add it as a child of the player object
