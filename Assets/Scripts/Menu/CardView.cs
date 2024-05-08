@@ -10,6 +10,7 @@ public class CardView : MonoBehaviour
 
     public void CloseButton()
     {
+        gameObject.GetComponentInParent<MenuFunctions>().playerIsViewingCards = false;
         Destroy(gameObject);
     }
 

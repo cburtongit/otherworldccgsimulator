@@ -15,6 +15,8 @@ public class MenuFunctions : MonoBehaviour
     public Player playerScript, opScript;
     public GameObject pHealthManaDisplay, cardView;
 
+    public bool playerIsViewingCards = false;
+
     public void Start()
     {
         player = gameMaster.GetComponent<GameMaster>().p1;
@@ -52,39 +54,50 @@ public class MenuFunctions : MonoBehaviour
 
     public void ShowHand()
     {
-        List<GameObject> hand = new List<GameObject>();
-        foreach (GameObject card in playerScript.hand) {
-            GameObject copy = Instantiate(card);
-            Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
-            hand.Add(copy);
-        }
-        ShowCardViewPanel(hand);
+        if (!playerIsViewingCards) {
+            playerIsViewingCards = true;
+            List<GameObject> hand = new List<GameObject>();
+            foreach (GameObject card in playerScript.hand) {
+                GameObject copy = Instantiate(card);
+                Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
+                hand.Add(copy);
+            }
+            ShowCardViewPanel(hand);
+        } else { Debug.Log("Player is already viewing cards!"); }
     }
 
     public void ShowDeck()
     {
-        List<GameObject> deck = new List<GameObject>();
-        foreach (GameObject card in playerScript.deck) {
-            GameObject copy = Instantiate(card);
-            Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
-            deck.Add(copy);
-        }
-        ShowCardViewPanel(deck);
+        if (!playerIsViewingCards) {
+            playerIsViewingCards = true;
+            List<GameObject> deck = new List<GameObject>();
+            foreach (GameObject card in playerScript.deck) {
+                GameObject copy = Instantiate(card);
+                Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
+                deck.Add(copy);
+            }
+            ShowCardViewPanel(deck);
+        } else { Debug.Log("Player is already viewing cards!"); }
     }
 
     public void ShowGrave()
     {
-        List<GameObject> grave = new List<GameObject>();
-        foreach (GameObject card in playerScript.grave) {
-            GameObject copy = Instantiate(card);
-            Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
-            grave.Add(copy);
-        }
-        ShowCardViewPanel(grave);
+        if (!playerIsViewingCards) {
+            playerIsViewingCards = true;
+            List<GameObject> grave = new List<GameObject>();
+            foreach (GameObject card in playerScript.grave) {
+                GameObject copy = Instantiate(card);
+                Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
+                grave.Add(copy);
+            }
+            ShowCardViewPanel(grave);
+        } else { Debug.Log("Player is already viewing cards!"); }
     }
 
     public void ShowTheVoid()
     {
+        if (!playerIsViewingCards) {
+            playerIsViewingCards = true;
         List<GameObject> theVoid = new List<GameObject>();
         foreach (GameObject card in playerScript.theVoid) {
             GameObject copy = Instantiate(card);
@@ -92,6 +105,7 @@ public class MenuFunctions : MonoBehaviour
             theVoid.Add(copy);
         }
         ShowCardViewPanel(theVoid);
+        } else { Debug.Log("Player is already viewing cards!"); }
     }  
     public void SurrenderGame()
     {
@@ -99,10 +113,8 @@ public class MenuFunctions : MonoBehaviour
     }
     public void ShowCardViewPanel(List<GameObject> cards)
     {
-        // Instantiate a new panel GameObject
-        //GameObject viewPanel = new GameObject("Panel");
         GameObject view = Instantiate(cardView, new UnityEngine.Vector3(0, 0, 0), UnityEngine.Quaternion.identity);
-        
+        view.name = "CardView";
         view.transform.SetParent(this.transform);
         view.transform.localScale = new UnityEngine.Vector3(1f, 1f, 1f);
         foreach (GameObject card in cards) {
