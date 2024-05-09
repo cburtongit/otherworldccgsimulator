@@ -7,22 +7,10 @@ public class MonsterZone : MonoBehaviour
     
     public int zoneId;
     public bool occupied;
-    public Card mons;
+    public GameObject owner, monster;
     
-    // Start is called before the first frame update
-    void Start()
+    void OnMouseDown()
     {
-        
+        Debug.Log("MonsterZone " + zoneId + " clicked");
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    /*void OnMouseEnter()
-    {
-        Debug.Log("Monster Zone " + zoneId + " hovered over.");
-    }*/
 }

@@ -4,10 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - handView
-  - monsterZone
-  - hoverMenu
-  - CardViewContent
+  - uiCardOptions
+  - uiCardViewer
   layers:
   - Default
   - TransparentFX

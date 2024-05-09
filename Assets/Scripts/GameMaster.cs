@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using TMPro;
+using UnityEditor;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -13,8 +15,14 @@ public class GameMaster : MonoBehaviour
 
     public GameObject p1, p2;
     Player p1script, p2script;
-    public int turnCount, turnStage;
+    public int turnCount;
     public GameObject turnPlayer;
+    public enum stage {
+        DRAW,
+        SETUP,
+        COMBAT
+    }
+    public stage turnStage = stage.DRAW;
 
     void Start()
     {
@@ -23,6 +31,7 @@ public class GameMaster : MonoBehaviour
         p2script = p2.GetComponent<Player>();
         // set HP
         p1script.hp = p2script.hp = 1000;
+        p1script.rp = p2script.rp = 0;
         // load & shuffle decks
         GenPlayerDecksFromFile_debug(p1, "Decks/demo_fire");
         GenPlayerDecksFromFile_debug(p2, "Decks/demo_fire");
@@ -31,7 +40,39 @@ public class GameMaster : MonoBehaviour
         // Draw starting hand
         p1script.DrawCard(5);
         p2script.DrawCard(5);
+        // setup the turn
+        turnCount = 0; turnPlayer = p2; NextTurn();
         
+    }
+
+    public void SwitchTurnPlayer()
+    {
+        if (turnPlayer == p2) { turnPlayer = p1; }
+        else if (turnPlayer == p1) { turnPlayer = p2; }
+        else { Debug.Log("Error - turn player not p1 or p2."); Application.Quit(); }
+    }
+    public void GoToDrawStage()
+    {
+        Player tpScript = turnPlayer.GetComponent<Player>();
+        turnStage = stage.DRAW;
+        // reset RP and Draw card.
+        tpScript.rp = turnCount*2;
+        tpScript.DrawCard();
+    }
+    public void GoToSetupStage()
+    {
+        turnStage = stage.SETUP;
+    }
+    public void GoToCombatStage()
+    {
+        turnStage = stage.COMBAT;
+    }
+    public void NextTurn()
+    {
+        // increase the turn count as the first action
+        turnCount++;
+        SwitchTurnPlayer();
+        GoToDrawStage();
     }
 
     void Update()
@@ -71,9 +112,13 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-    public void GenPlayerDecksFromFile_debug(GameObject player, String deckname) {
+    String[] LoadDeckFromFile(String deckname)
+    {
         TextAsset deckFile = Resources.Load<TextAsset>(deckname);
-        string[] deckList = deckFile.ToString().Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+        return deckFile.ToString().Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+    }
+    public void GenPlayerDecksFromFile_debug(GameObject player, String deckname) {
+        String[] deckList = LoadDeckFromFile(deckname);
         foreach (String id in deckList) {
             // create game object, set as inactive, assign object name in editor
             GameObject card = new GameObject();
