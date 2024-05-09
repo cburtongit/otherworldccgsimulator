@@ -12,21 +12,52 @@ public class CardOptions : MonoBehaviour
     {
         Debug.Log("Summon " + cScript.cardName);
     }
+    public void Activate()
+    {
+        Debug.Log("Play " + cScript.cardName);
+    }
+    public void Revive()
+    {
+        Debug.Log("Revive " + cScript.cardName);
+    }
     public void Info()
     {
-        Debug.Log("Info " + cScript.cardName);
+        Debug.Log("NAME: " + cScript.name + '\n' + "TEXT: " + cScript.cardText);
     }
     public void Discard()
     {
-        Debug.Log("Discard " + cScript.cardName);
+        cScript.owner.ToGrave(card, Player.LOC.HAND);
+        foreach (GameObject view in GameObject.FindGameObjectsWithTag("uiCardViewer")) { Destroy(view); }
+        card.GetComponentInParent<GameUI>().ShowHand();
     }
-    public void Void()
+    public void DiscardVoid()
     {
-        Debug.Log("Void " + cScript.cardName);
+        cScript.owner.ToVoid(card, Player.LOC.HAND);
+        foreach (GameObject view in GameObject.FindGameObjectsWithTag("uiCardViewer")) { Destroy(view); }
     }
-    public void ShuffleBack()
+    public void HandShuffleBack()
     {
-
+        cScript.owner.ToDeck(card, Player.LOC.DECK);
+        foreach (GameObject view in GameObject.FindGameObjectsWithTag("uiCardViewer")) { Destroy(view); }   
     }
-
+    public void Search()
+    {
+        cScript.owner.ToHand(card, Player.LOC.DECK);
+        foreach (GameObject view in GameObject.FindGameObjectsWithTag("uiCardViewer")) { Destroy(view); }
+    }
+    public void Recover()
+    {
+        cScript.owner.ToHand(card, Player.LOC.GRAVE);
+        foreach (GameObject view in GameObject.FindGameObjectsWithTag("uiCardViewer")) { Destroy(view); }
+    }
+    public void Mill()
+    {
+        cScript.owner.ToVoid(card, Player.LOC.DECK);
+        foreach (GameObject view in GameObject.FindGameObjectsWithTag("uiCardViewer")) { Destroy(view); }
+    }
+    public void MillVoid()
+    {
+        cScript.owner.ToVoid(card, Player.LOC.DECK);
+        foreach (GameObject view in GameObject.FindGameObjectsWithTag("uiCardViewer")) { Destroy(view); }
+    }
 }

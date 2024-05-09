@@ -11,6 +11,6 @@ public class MonsterZone : MonoBehaviour
     
     void OnMouseDown()
     {
-        Debug.Log("MonsterZone " + zoneId + " clicked");
+        // Debug.Log("MonsterZone " + zoneId + " clicked");
     }
 }

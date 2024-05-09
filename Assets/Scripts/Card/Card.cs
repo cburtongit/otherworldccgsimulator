@@ -43,6 +43,7 @@ public class Card : MonoBehaviour
     public Player controller, owner; // Player who owns card (at start of game)
     public string cardName, originalName;
     public int rPCost, originalRPCost;
+    public GameObject selfRef;
 
     public List<string> alignments = new List<string>();
     public List<string> originalAlignments = new List<string>();

@@ -11,6 +11,7 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
+    public enum LOC {HAND, DECK, GRAVE, VOID, NONE}
     public GameObject gameMaster, player, op;
     public Player pScript, opScript;
     public GameObject pHPRP, oHPRP, cardView, cardOptions;
@@ -34,7 +35,6 @@ public class GameUI : MonoBehaviour
     {
         
     }
-    
     public void UpdateHPMP(Player p, bool isPlayer)
     {
         if (isPlayer) { pHPRP.GetComponent<TMPro.TextMeshProUGUI>().text = "(P1) HP: " + p.hp + " | RP: " + p.rp; } 
@@ -44,7 +44,6 @@ public class GameUI : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
-    
     public void QuitGame()
     {
         Debug.Log("Quitting application...");
@@ -58,10 +57,11 @@ public class GameUI : MonoBehaviour
         List<GameObject> hand = new List<GameObject>();
         foreach (GameObject card in pScript.hand) {
             GameObject copy = Instantiate(card);
+            copy.GetComponent<Card>().selfRef = card;
             Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
             hand.Add(copy);
         }
-        ShowCardViewPanel(hand);
+        ShowCardViewPanel(hand, LOC.HAND);
     }
     public void ShowDeck()
     {
@@ -73,7 +73,7 @@ public class GameUI : MonoBehaviour
             Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
             deck.Add(copy);
         }
-        ShowCardViewPanel(deck);
+        ShowCardViewPanel(deck, LOC.DECK);
     }
     public void ShowGrave()
     {
@@ -84,7 +84,7 @@ public class GameUI : MonoBehaviour
             Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
             grave.Add(copy);
         }
-        ShowCardViewPanel(grave);
+        ShowCardViewPanel(grave, LOC.GRAVE);
     }
     public void ShowTheVoid()
     {
@@ -94,9 +94,9 @@ public class GameUI : MonoBehaviour
             Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
             theVoid.Add(copy);
         }
-        ShowCardViewPanel(theVoid);
+        ShowCardViewPanel(theVoid, LOC.VOID);
     }  
-    void ShowCardViewPanel(List<GameObject> cards)
+    void ShowCardViewPanel(List<GameObject> cards, LOC loc = LOC.NONE)
     {
         // Create an instance of the CardView Prefab, set it as a child of the canvas
         GameObject view = Instantiate(cardView, new UnityEngine.Vector3(0, 0, 0), UnityEngine.Quaternion.identity);
@@ -109,27 +109,34 @@ public class GameUI : MonoBehaviour
             card.transform.SetParent(view.GetComponent<CardView>().content.transform);
             card.transform.localScale = new UnityEngine.Vector3(1f,1f,1f);
             card.GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(200, 280);
-            // create the CardOptions panel for each card, set it's position and scale, then hide it
-            GameObject options = Instantiate(cardOptions, card.transform.position, UnityEngine.Quaternion.identity);
-            options.name = "CardOptions"; options.tag = "uiCardOptions";
-            options.GetComponent<CardOptions>().gameMaster = gameMaster; 
-            options.GetComponent<CardOptions>().card = card;
-            options.GetComponent<CardOptions>().cScript = card.GetComponent<Card>();
-            options.transform.SetParent(card.transform);
-            options.transform.localScale = new UnityEngine.Vector3(1f, 1f, 1f);
-            // align the panel from the TOP MIDDLE (like in the editor)
-            options.GetComponent<RectTransform>().anchorMin = new UnityEngine.Vector2(0.5f, 1f);
-            options.GetComponent<RectTransform>().anchorMax = new UnityEngine.Vector2(0.5f, 1f);
-            options.GetComponent<RectTransform>().pivot = new UnityEngine.Vector2(0.5f, 1f);
-            // create and set the function for the cardOptions panel, toggle it when clicked and toggle off any other ones.
-            card.AddComponent<Toggle>();
-            card.GetComponent<Toggle>().onValueChanged.AddListener(delegate { 
-                foreach (GameObject menu in GameObject.FindGameObjectsWithTag("uiCardOptions")) {menu.SetActive(false);}
-                options.SetActive(!options.activeSelf); 
-            });
-            options.SetActive(false);
+            CreateCardOptionsPanel(card);
             card.SetActive(true);
         }
     }
-    
+
+    void CreateCardOptionsPanel(GameObject card, LOC loc = LOC.NONE)
+    {
+        GameObject options = Instantiate(cardOptions, card.transform.position, UnityEngine.Quaternion.identity);
+        options.name = "CardOptions"; options.tag = "uiCardOptions";
+        options.GetComponent<CardOptions>().gameMaster = gameMaster; 
+        options.GetComponent<CardOptions>().card = card;
+        options.GetComponent<CardOptions>().cScript = card.GetComponent<Card>();
+        options.transform.SetParent(card.transform);
+        options.transform.localScale = new UnityEngine.Vector3(1f, 1f, 1f);
+        // align the panel from the TOP MIDDLE (like in the editor)
+        options.GetComponent<RectTransform>().anchorMin = new UnityEngine.Vector2(0f, 0f);
+        options.GetComponent<RectTransform>().anchorMax = new UnityEngine.Vector2(1f, 1f);
+        options.GetComponent<RectTransform>().pivot = new UnityEngine.Vector2(0.5f, 0.5f);
+        options.GetComponent<RectTransform>().offsetMin = new UnityEngine.Vector2(options.GetComponent<RectTransform>().offsetMin.x, 0);
+        options.GetComponent<RectTransform>().offsetMin = new UnityEngine.Vector2(options.GetComponent<RectTransform>().offsetMin.y, 0);
+        options.GetComponent<RectTransform>().offsetMax = new UnityEngine.Vector2(options.GetComponent<RectTransform>().offsetMin.x, 0);
+        options.GetComponent<RectTransform>().offsetMax = new UnityEngine.Vector2(options.GetComponent<RectTransform>().offsetMin.y, 0);
+        // create and set the function for the cardOptions panel, toggle it when clicked and toggle off any other ones.
+        card.AddComponent<Toggle>();
+        card.GetComponent<Toggle>().onValueChanged.AddListener(delegate { 
+            foreach (GameObject menu in GameObject.FindGameObjectsWithTag("uiCardOptions")) {menu.SetActive(false);}
+            options.SetActive(!options.activeSelf); 
+        });
+        options.SetActive(false);
+    }
 }

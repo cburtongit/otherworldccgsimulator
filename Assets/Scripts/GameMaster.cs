@@ -13,6 +13,13 @@ using UnityEngine.UIElements;
 public class GameMaster : MonoBehaviour
 {
 
+    public enum LOC {
+        HAND,
+        DECK,
+        GRAVE,
+        VOID,
+        NONE
+    }
     public GameObject p1, p2;
     Player p1script, p2script;
     public int turnCount;
@@ -33,8 +40,8 @@ public class GameMaster : MonoBehaviour
         p1script.hp = p2script.hp = 1000;
         p1script.rp = p2script.rp = 0;
         // load & shuffle decks
-        GenPlayerDecksFromFile_debug(p1, "Decks/demo_fire");
-        GenPlayerDecksFromFile_debug(p2, "Decks/demo_fire");
+        GenDecksFromFile_debug(p1, "Decks/demo_fire");
+        GenDecksFromFile_debug(p2, "Decks/demo_fire");
         p1script.ShuffleDeck();
         p2script.ShuffleDeck();
         // Draw starting hand
@@ -45,7 +52,7 @@ public class GameMaster : MonoBehaviour
         
     }
 
-    public void SwitchTurnPlayer()
+    void SwitchTurnPlayer()
     {
         if (turnPlayer == p2) { turnPlayer = p1; }
         else if (turnPlayer == p1) { turnPlayer = p2; }
@@ -75,12 +82,7 @@ public class GameMaster : MonoBehaviour
         GoToDrawStage();
     }
 
-    void Update()
-    {
-        
-    }
-
-    public void GenPlayerDecks_debug(GameObject player)
+    void GenPlayerDecks_debug(GameObject player)
     {
         Sprite testPic = Resources.Load<Sprite>("Images/artwork/DarkProwler");
         
@@ -117,31 +119,43 @@ public class GameMaster : MonoBehaviour
         TextAsset deckFile = Resources.Load<TextAsset>(deckname);
         return deckFile.ToString().Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
     }
-    public void GenPlayerDecksFromFile_debug(GameObject player, String deckname) {
+    void GenDecksFromFile_debug(GameObject player, String deckname)
+    {
         String[] deckList = LoadDeckFromFile(deckname);
         foreach (String id in deckList) {
             // create game object, set as inactive, assign object name in editor
-            GameObject card = new GameObject();
+            GameObject card = new GameObject("Card-" + id, typeof(RectTransform), typeof(Card), typeof(SpriteRenderer), typeof(UnityEngine.UI.Image));
             card.SetActive(false);
-            card.name = "Card-" + id;
-            // add necessary unity components
-            card.AddComponent<RectTransform>();
-            card.AddComponent<Card>();
-            card.AddComponent<SpriteRenderer>();
-            card.AddComponent<UnityEngine.UI.Image>();
             // add card stats (dummy values for now)
             card.GetComponent<Card>().controller = card.GetComponent<Card>().owner = player.GetComponent<Player>();
-            card.GetComponent<Card>().cardName = card.GetComponent<Card>().originalName = "Card-" + id;
+            card.GetComponent<Card>().cardName = card.GetComponent<Card>().originalName = "card-" + id;
             card.GetComponent<Card>().rPCost = card.GetComponent<Card>().originalRPCost = 0;
-            card.GetComponent<Card>().alignments.Add("Test");
+            card.GetComponent<Card>().alignments.Add("test");
             card.GetComponent<Card>().originalAlignments = card.GetComponent<Card>().alignments;
             card.GetComponent<Card>().serial = id;
+            card.GetComponent<Card>().cardText = "This is a test card. It does nothing.";
             // add artwork from file
             Sprite art = Resources.Load<Sprite>("Images/cards/" + id);
             card.GetComponent<SpriteRenderer>().sprite = card.GetComponent<UnityEngine.UI.Image>().sprite = art;
             // add to player's deck & add it as a child of the player object
             player.GetComponent<Player>().deck.Add(card);
             card.transform.SetParent(player.transform);
+        }
+    }
+
+    void GenDecksFromDB(GameObject player, String deckname)
+    {
+        String[] deckList = LoadDeckFromFile(deckname);
+        foreach (String id in deckList) {
+            // create game object, set as inactive, assign object name in editor
+            GameObject card = new GameObject("Card-" + id, typeof(RectTransform), typeof(Card), typeof(SpriteRenderer), typeof(UnityEngine.UI.Image));
+            card.SetActive(false);
+            // check card ID
+            // load in from database using ID
+            // check if monster or spel
+            // assign values from database
+            // load artwork from folder using ID
+
         }
     }
 }

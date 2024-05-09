@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class Player : MonoBehaviour
 {
@@ -17,56 +18,30 @@ public class Player : MonoBehaviour
             Card and Player statuses in variables and checking them every action
             could slow down the game. Will investigate similar software.
     */
-
+    public enum LOC {HAND, DECK, GRAVE, VOID, NONE}
     public string playerId;
     public int hp, rp;
-
-    // Player card locations.
+    // Player card piles.
     public List<GameObject> hand = new List<GameObject>();
     public List<GameObject> deck = new List<GameObject>();
     public List<GameObject> grave = new List<GameObject>();
     public List<GameObject> theVoid = new List<GameObject>();
 
-    public enum LOC {
-        HAND,
-        DECK,
-        GRAVE,
-        VOID,
-    }
-
-    void Start()
-    {
-
-    }
-    void Update()
-    {
-        
-    }
-
-    // in-game mechanic
-    // topOfDeck is default as true, meaning it will add cards from the start of the array, false would add from bottom
     public void DrawCard(int numOfCards = 1)
     {
-        int debug_j = 0;
         if (deck.Count > 0) { 
             for (int i = 0; i < numOfCards; i++) {
                 hand.Add(deck[0]);
                 deck.RemoveAt(0);
-                debug_j++;
             }
         } else {Debug.Log("ERROR: Deck is empty!"); }
     }
     public void DiscardCard(GameObject target)
     {
-        foreach (GameObject card in hand) {
-            Debug.Log("");
-            if (card==target) {
-                Debug.Log("DISCARDING: " + card.GetComponent<MonsterCard>().cardName);
-                grave.Add(card);
-                hand.Remove(card);
-                Debug.Log("DISCARD successful");
-            }
-        }
+        if (hand.Contains(target.GetComponent<Card>().selfRef)) {
+            grave.Add(target.GetComponent<Card>().selfRef);
+            hand.Remove(target.GetComponent<Card>().selfRef);
+        } else { Debug.Log("No target in hand."); }
     }
     public void VoidFromGrave(GameObject target)
     {
@@ -79,100 +54,96 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void SendToHand(GameObject target, LOC loc)
+    public void ToHand(GameObject target, LOC loc)
     {
         switch (loc) {
-            case LOC.HAND:
-                Debug.Log("Error - attempted to send a card in HAND to the same location");
-                break;
+            case LOC.HAND: Debug.Log("Error - attempted to send a card in HAND to the same location"); break;
             case LOC.DECK:
-                hand.Add(target);
-                deck.Remove(target);
+                if (deck.Contains(target.GetComponent<Card>().selfRef)) {
+                    hand.Add(target.GetComponent<Card>().selfRef);
+                    deck.Remove(target.GetComponent<Card>().selfRef);
+                } else { Debug.Log("No target in hand."); }
                 break;
             case LOC.GRAVE:
-                hand.Add(target);
-                grave.Remove(target);
+                if (grave.Contains(target.GetComponent<Card>().selfRef)) {
+                    hand.Add(target.GetComponent<Card>().selfRef);
+                    grave.Remove(target.GetComponent<Card>().selfRef);
+                } else { Debug.Log("No target in hand."); }
                 break;
-            case LOC.VOID:
-                Debug.Log("Error - game mechanics do not allow cards in the VOID to be RECOVERED");
-                break;
-            default:
-                Debug.Log("Error - SendToHand() cannot source valid LOC param for location");
-                break;
+            case LOC.VOID: Debug.Log("Error - game mechanics do not allow cards in the VOID to be RECOVERED"); break;
+            default: Debug.Log("Error - SendToHand() cannot source valid LOC param for location"); break;
         }
     }
-
-    public void SendToDeck(GameObject target, LOC loc)
+    public void ToDeck(GameObject target, LOC loc)
     {
         switch (loc) {
             case LOC.HAND:
-                deck.Add(target);
-                ShuffleDeck();
-                hand.Remove(target);
+                if (hand.Contains(target.GetComponent<Card>().selfRef)) {
+                    deck.Add(target.GetComponent<Card>().selfRef);
+                    hand.Remove(target.GetComponent<Card>().selfRef);
+                    ShuffleDeck();
+                } else { Debug.Log("No target in hand."); }
                 break;
-            case LOC.DECK:
-                Debug.Log("Error - attempted to send a card in DECK to the same location");
-                break;
+            case LOC.DECK: Debug.Log("Error - attempted to send a card in DECK to the same location"); break;
             case LOC.GRAVE:
-                deck.Add(target);
-                ShuffleDeck();
-                grave.Remove(target);
+                if (grave.Contains(target.GetComponent<Card>().selfRef)) {
+                    deck.Add(target.GetComponent<Card>().selfRef);
+                    grave.Remove(target.GetComponent<Card>().selfRef);
+                    ShuffleDeck();
+                } else { Debug.Log("No target in hand."); }
                 break;
-            case LOC.VOID:
-                Debug.Log("Error - game mechanics do not allow cards in the VOID to be RECOVERED");
-                break;
-            default:
-                Debug.Log("Error - SendToDeck() cannot source valid LOC param for location");
-                break;
+            case LOC.VOID: Debug.Log("Error - game mechanics do not allow cards in the VOID to be RECOVERED"); break;
+            default: Debug.Log("Error - SendToDeck() cannot source valid LOC param for location"); break;
         }
     }
-
-    public void SendToGrave(GameObject target, LOC loc)
+    public void ToGrave(GameObject target, LOC loc)
     {
         switch (loc) {
             case LOC.HAND:
-                grave.Add(target);
-                hand.Remove(target);
+                if (hand.Contains(target.GetComponent<Card>().selfRef)) {
+                    grave.Add(target.GetComponent<Card>().selfRef);
+                    hand.Remove(target.GetComponent<Card>().selfRef);
+                } else { Debug.Log("No target in grave."); }
                 break;
             case LOC.DECK:
-                grave.Add(target);
-                deck.Remove(target);
+                if (deck.Contains(target.GetComponent<Card>().selfRef)) {
+                    grave.Add(target.GetComponent<Card>().selfRef);
+                    deck.Remove(target.GetComponent<Card>().selfRef);
+                    ShuffleDeck();
+                } else { Debug.Log("No target in grave."); }
                 break;
-            case LOC.GRAVE:
-                Debug.Log("Error - attempted to send a card in GRAVE to the same location");
-                break;
-            case LOC.VOID:
-                Debug.Log("Error - game mechanics do not allow cards in the VOID to be RECOVERED");
-                break;
-            default:
-                Debug.Log("Error - SendToGrave() cannot source valid LOC param for location");
-                break;
+            case LOC.GRAVE: Debug.Log("Error - attempted to send a card in GRAVE to the same location"); break;
+            case LOC.VOID: Debug.Log("Error - game mechanics do not allow cards in the VOID to be RECOVERED"); break;
+            default: Debug.Log("Error - ToGrave() cannot source valid LOC param for location"); break;
         }
     }
-
-    public void SendToVoid(GameObject target, LOC loc)
+    public void ToVoid(GameObject target, LOC loc)
     {
         switch (loc) {
             case LOC.HAND:
-                theVoid.Add(target);
-                hand.Remove(target);
+                if (hand.Contains(target.GetComponent<Card>().selfRef)) {
+                    theVoid.Add(target.GetComponent<Card>().selfRef);
+                    hand.Remove(target.GetComponent<Card>().selfRef);
+                } else { Debug.Log("No target in hand."); }
                 break;
             case LOC.DECK:
-                theVoid.Add(target);
-                deck.Remove(target);
+                if (deck.Contains(target.GetComponent<Card>().selfRef)) {
+                    theVoid.Add(target.GetComponent<Card>().selfRef);
+                    deck.Remove(target.GetComponent<Card>().selfRef);
+                } else { Debug.Log("No target in hand."); }
                 break;
             case LOC.GRAVE:
-                theVoid.Add(target);
-                grave.Remove(target);
+                if (grave.Contains(target.GetComponent<Card>().selfRef)) {
+                    theVoid.Add(target.GetComponent<Card>().selfRef);
+                    grave.Remove(target.GetComponent<Card>().selfRef);
+                } else { Debug.Log("No target in hand."); }
                 break;
             case LOC.VOID:
                 Debug.Log("Error - game mechanics do not allow cards in the VOID to be RECOVERED");
                 Debug.Log("Error - attempted to send a card in the VOID to same location");
                 Debug.Log("Achievement Unlocked! - Dramatically mess up to the point you trigger 2 impossible errors."); // I will eat my laptop if someone manages to break my game this badly
                 break;
-            default:
-                Debug.Log("Error - SendToVoid() cannot source valid LOC param for location");
-                break;
+            default: Debug.Log("Error - SendToVoid() cannot source valid LOC param for location"); break;
         }
     }
 
@@ -189,9 +160,8 @@ public class Player : MonoBehaviour
     public void ShuffleDeck()
     {
         // Fisher-Yates shuffling algo used here.
-        for (int i = deck.Count-1; i > 0; i--)
-		{
-			int rnd = Random.Range(0,i);
+        for (int i = deck.Count-1; i > 0; i--) {
+			int rnd = UnityEngine.Random.Range(0,i);
 			GameObject temp = deck[i];
 			deck[i] = deck[rnd];
 			deck[rnd] = temp;
