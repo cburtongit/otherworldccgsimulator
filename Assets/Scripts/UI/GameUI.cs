@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using Microsoft.Unity.VisualStudio.Editor;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.UI;
 using UnityEngine;
@@ -14,7 +15,7 @@ public class GameUI : MonoBehaviour
     public enum LOC {HAND, DECK, GRAVE, VOID, NONE}
     public GameObject gameMaster, player, op;
     public Player pScript, opScript;
-    public GameObject pHPRP, oHPRP, cardView, cardOptions;
+    public GameObject pHPRP, oHPRP, cardView, cardOptions, cardOptTest;
 
     public bool playerIsViewingCards = false;
     public bool playerIsViewingCardOptions = false;
@@ -70,6 +71,7 @@ public class GameUI : MonoBehaviour
         List<GameObject> deck = new List<GameObject>();
         foreach (GameObject card in pScript.deck) {
             GameObject copy = Instantiate(card);
+            copy.GetComponent<Card>().selfRef = card;
             Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
             deck.Add(copy);
         }
@@ -81,6 +83,7 @@ public class GameUI : MonoBehaviour
         List<GameObject> grave = new List<GameObject>();
         foreach (GameObject card in pScript.grave) {
             GameObject copy = Instantiate(card);
+            copy.GetComponent<Card>().selfRef = card;
             Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
             grave.Add(copy);
         }
@@ -91,6 +94,7 @@ public class GameUI : MonoBehaviour
         List<GameObject> theVoid = new List<GameObject>();
         foreach (GameObject card in pScript.theVoid) {
             GameObject copy = Instantiate(card);
+            copy.GetComponent<Card>().selfRef = card;
             Destroy(copy.GetComponent<SpriteRenderer>()); // remove unecessary component
             theVoid.Add(copy);
         }
@@ -109,12 +113,12 @@ public class GameUI : MonoBehaviour
             card.transform.SetParent(view.GetComponent<CardView>().content.transform);
             card.transform.localScale = new UnityEngine.Vector3(1f,1f,1f);
             card.GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(200, 280);
-            CreateCardOptionsPanel(card);
+            //CreateCardOptionsPanel(card);
+            CreateCardOptions(card, loc);
             card.SetActive(true);
         }
     }
-
-    void CreateCardOptionsPanel(GameObject card, LOC loc = LOC.NONE)
+    void CreateCardOptions(GameObject card, LOC loc = LOC.NONE, bool isMonster = true)
     {
         GameObject options = Instantiate(cardOptions, card.transform.position, UnityEngine.Quaternion.identity);
         options.name = "CardOptions"; options.tag = "uiCardOptions";
@@ -122,6 +126,8 @@ public class GameUI : MonoBehaviour
         options.GetComponent<CardOptions>().card = card;
         options.GetComponent<CardOptions>().cScript = card.GetComponent<Card>();
         options.transform.SetParent(card.transform);
+         // set the options for the buttons depending on location
+        SetButtonInCardOptions(options.GetComponent<CardOptions>(), loc, true);
         options.transform.localScale = new UnityEngine.Vector3(1f, 1f, 1f);
         // align the panel from the TOP MIDDLE (like in the editor)
         options.GetComponent<RectTransform>().anchorMin = new UnityEngine.Vector2(0f, 0f);
@@ -138,5 +144,32 @@ public class GameUI : MonoBehaviour
             options.SetActive(!options.activeSelf); 
         });
         options.SetActive(false);
+    }
+
+    void SetButtonInCardOptions(CardOptions opt, LOC loc, bool isMonster)
+    {
+        if (isMonster) { opt.b_activate.SetActive(false); opt.b_activatefromdeck.SetActive(false); } // remove supportcard options
+        else { opt.b_summon.SetActive(false); opt.b_summonfromdeck.SetActive(false); opt.b_revive.SetActive(false); } // remove monstercard options
+        switch (loc) {
+            case LOC.HAND:
+            opt.b_search.SetActive(false); opt.b_mill.SetActive(false); opt.b_millvoid.SetActive(false); opt.b_summonfromdeck.SetActive(false); // remove deck options
+            opt.b_recover.SetActive(false); opt.b_graveshuffleback.SetActive(false); opt.b_void.SetActive(false); opt.b_revive.SetActive(false); opt.b_recover.SetActive(false); // remove grave options
+            break;
+            case LOC.DECK:
+            opt.b_handshuffleback.SetActive(false); opt.b_discard.SetActive(false); opt.b_discardvoid.SetActive(false); opt.b_summon.SetActive(false); // remove hand options
+            opt.b_recover.SetActive(false); opt.b_graveshuffleback.SetActive(false); opt.b_void.SetActive(false); opt.b_revive.SetActive(false); opt.b_recover.SetActive(false); // remove grave options
+            break;
+            case LOC.GRAVE:
+            opt.b_handshuffleback.SetActive(false); opt.b_discard.SetActive(false); opt.b_discardvoid.SetActive(false); // remove hand options
+            opt.b_search.SetActive(false); opt.b_mill.SetActive(false); opt.b_millvoid.SetActive(false); opt.b_summonfromdeck.SetActive(false); // remove deck options
+            break;
+            case LOC.VOID:
+            opt.b_handshuffleback.SetActive(false); opt.b_discard.SetActive(false); opt.b_discardvoid.SetActive(false); opt.b_summon.SetActive(false); // remove hand options
+            opt.b_search.SetActive(false); opt.b_mill.SetActive(false); opt.b_millvoid.SetActive(false); opt.b_summonfromdeck.SetActive(false); // remove deck options
+            opt.b_recover.SetActive(false); opt.b_graveshuffleback.SetActive(false); opt.b_void.SetActive(false); opt.b_revive.SetActive(false); opt.b_recover.SetActive(false); // remove grave options
+            break;
+            case LOC.NONE: Debug.Log("SetButtonInCardOptions 'loc' param set to LOC.NONE"); break;
+            default: Debug.Log("SetButtonInCardOptions switch(loc) default case reached"); break;
+        }
     }
 }

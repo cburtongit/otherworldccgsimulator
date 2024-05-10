@@ -21,7 +21,6 @@ public class Player : MonoBehaviour
     public enum LOC {HAND, DECK, GRAVE, VOID, NONE}
     public string playerId;
     public int hp, rp;
-    // Player card piles.
     public List<GameObject> hand = new List<GameObject>();
     public List<GameObject> deck = new List<GameObject>();
     public List<GameObject> grave = new List<GameObject>();
@@ -36,24 +35,16 @@ public class Player : MonoBehaviour
             }
         } else {Debug.Log("ERROR: Deck is empty!"); }
     }
-    public void DiscardCard(GameObject target)
+    public void ShuffleDeck()
     {
-        if (hand.Contains(target.GetComponent<Card>().selfRef)) {
-            grave.Add(target.GetComponent<Card>().selfRef);
-            hand.Remove(target.GetComponent<Card>().selfRef);
-        } else { Debug.Log("No target in hand."); }
+        // Fisher-Yates shuffling algo used here.
+        for (int i = deck.Count-1; i > 0; i--) {
+			int rnd = UnityEngine.Random.Range(0,i);
+			GameObject temp = deck[i];
+			deck[i] = deck[rnd];
+			deck[rnd] = temp;
+		}
     }
-    public void VoidFromGrave(GameObject target)
-    {
-        foreach (GameObject card in grave) {
-            if (card == target) {
-                theVoid.Add(card);
-                grave.Remove(card);
-
-            }
-        }
-    }
-
     public void ToHand(GameObject target, LOC loc)
     {
         switch (loc) {
@@ -62,13 +53,13 @@ public class Player : MonoBehaviour
                 if (deck.Contains(target.GetComponent<Card>().selfRef)) {
                     hand.Add(target.GetComponent<Card>().selfRef);
                     deck.Remove(target.GetComponent<Card>().selfRef);
-                } else { Debug.Log("No target in hand."); }
+                } else { Debug.Log("No target in deck to add to hand."); }
                 break;
             case LOC.GRAVE:
                 if (grave.Contains(target.GetComponent<Card>().selfRef)) {
                     hand.Add(target.GetComponent<Card>().selfRef);
                     grave.Remove(target.GetComponent<Card>().selfRef);
-                } else { Debug.Log("No target in hand."); }
+                } else { Debug.Log("No target in grave to add to hand."); }
                 break;
             case LOC.VOID: Debug.Log("Error - game mechanics do not allow cards in the VOID to be RECOVERED"); break;
             default: Debug.Log("Error - SendToHand() cannot source valid LOC param for location"); break;
@@ -82,7 +73,7 @@ public class Player : MonoBehaviour
                     deck.Add(target.GetComponent<Card>().selfRef);
                     hand.Remove(target.GetComponent<Card>().selfRef);
                     ShuffleDeck();
-                } else { Debug.Log("No target in hand."); }
+                } else { Debug.Log("No target in hand to add to deck."); }
                 break;
             case LOC.DECK: Debug.Log("Error - attempted to send a card in DECK to the same location"); break;
             case LOC.GRAVE:
@@ -90,7 +81,7 @@ public class Player : MonoBehaviour
                     deck.Add(target.GetComponent<Card>().selfRef);
                     grave.Remove(target.GetComponent<Card>().selfRef);
                     ShuffleDeck();
-                } else { Debug.Log("No target in hand."); }
+                } else { Debug.Log("No target in deck."); }
                 break;
             case LOC.VOID: Debug.Log("Error - game mechanics do not allow cards in the VOID to be RECOVERED"); break;
             default: Debug.Log("Error - SendToDeck() cannot source valid LOC param for location"); break;
@@ -103,14 +94,14 @@ public class Player : MonoBehaviour
                 if (hand.Contains(target.GetComponent<Card>().selfRef)) {
                     grave.Add(target.GetComponent<Card>().selfRef);
                     hand.Remove(target.GetComponent<Card>().selfRef);
-                } else { Debug.Log("No target in grave."); }
+                } else { Debug.Log("No target in hand to add to grave."); }
                 break;
             case LOC.DECK:
                 if (deck.Contains(target.GetComponent<Card>().selfRef)) {
                     grave.Add(target.GetComponent<Card>().selfRef);
                     deck.Remove(target.GetComponent<Card>().selfRef);
                     ShuffleDeck();
-                } else { Debug.Log("No target in grave."); }
+                } else { Debug.Log("No target in deck to add to grave."); }
                 break;
             case LOC.GRAVE: Debug.Log("Error - attempted to send a card in GRAVE to the same location"); break;
             case LOC.VOID: Debug.Log("Error - game mechanics do not allow cards in the VOID to be RECOVERED"); break;
@@ -147,24 +138,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ModifyHP(int change) 
-    {
-        hp += change;
-        if (hp <= 0) { Debug.Log("Player " + playerId + " lost! Game Over"); } // Loss condition
-    }
-    public void ModifyRP(int change)
-    {
-        rp += change;
-    }
-
-    public void ShuffleDeck()
-    {
-        // Fisher-Yates shuffling algo used here.
-        for (int i = deck.Count-1; i > 0; i--) {
-			int rnd = UnityEngine.Random.Range(0,i);
-			GameObject temp = deck[i];
-			deck[i] = deck[rnd];
-			deck[rnd] = temp;
-		}
-    }
+    public void ModifyHP(int change) { hp += change; if (hp <= 0) { Debug.Log("Player " + playerId + " lost! Game Over"); } }
+    public void ModifyRP(int change) { rp += change; }
 }

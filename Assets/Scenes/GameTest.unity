@@ -1259,6 +1259,7 @@ MonoBehaviour:
   oHPRP: {fileID: 139198670}
   cardView: {fileID: 2270063499470992737, guid: 6c049794cb20fc042bcfb6e09e50ea3f, type: 3}
   cardOptions: {fileID: 8349228589070195216, guid: 074ef2e099bd81941b440b01b3a56511, type: 3}
+  cardOptTest: {fileID: 7152005374997597207, guid: 812ddb59ab70cab41a5c775b210174b3, type: 3}
   playerIsViewingCards: 0
   playerIsViewingCardOptions: 0
 --- !u!1 &650871868

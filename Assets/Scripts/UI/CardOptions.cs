@@ -7,57 +7,93 @@ public class CardOptions : MonoBehaviour
 {
     public GameObject gameMaster, card;
     public Card cScript;
+    public GameObject 
+    b_summon, b_activate, b_summonfromdeck, b_revive, b_activatefromdeck, 
+    b_handshuffleback, b_discard, b_discardvoid, 
+    b_search, b_mill, b_millvoid,
+    b_recover, b_graveshuffleback, b_void, b_info;
 
-    public void Summon()
+    // To Field
+    public void Summon() // from hand - summon a MonsterCard
     {
         Debug.Log("Summon " + cScript.cardName);
     }
-    public void Activate()
+    public void Activate() // from hand - activate a SupportCard
     {
         Debug.Log("Play " + cScript.cardName);
     }
-    public void Revive()
+    public void SummonFromDeck() // from deck - summon a MonsterCard
+    {
+        Debug.Log("Summon (from deck) " + cScript.cardName);
+    }
+    public void Revive() // from grave - summon a MonsterCard
     {
         Debug.Log("Revive " + cScript.cardName);
     }
-    public void Info()
+    public void ActivateFromDeck() // from deck - activate a SupportCard
     {
-        Debug.Log("NAME: " + cScript.name + '\n' + "TEXT: " + cScript.cardText);
+        Debug.Log("Activate (from deck) " + cScript.cardName);
     }
-    public void Discard()
+    // In-Hand
+    public void HandShuffleBack() // add to deck
+    {
+        cScript.owner.ToDeck(card, Player.LOC.HAND);
+        foreach (GameObject view in GameObject.FindGameObjectsWithTag("uiCardViewer")) { Destroy(view); }
+        card.GetComponentInParent<GameUI>().ShowHand();  
+    }
+    public void Discard() // add to grave
     {
         cScript.owner.ToGrave(card, Player.LOC.HAND);
         foreach (GameObject view in GameObject.FindGameObjectsWithTag("uiCardViewer")) { Destroy(view); }
         card.GetComponentInParent<GameUI>().ShowHand();
     }
-    public void DiscardVoid()
+    public void DiscardVoid() // add to void
     {
         cScript.owner.ToVoid(card, Player.LOC.HAND);
         foreach (GameObject view in GameObject.FindGameObjectsWithTag("uiCardViewer")) { Destroy(view); }
+        card.GetComponentInParent<GameUI>().ShowHand();
     }
-    public void HandShuffleBack()
-    {
-        cScript.owner.ToDeck(card, Player.LOC.DECK);
-        foreach (GameObject view in GameObject.FindGameObjectsWithTag("uiCardViewer")) { Destroy(view); }   
-    }
-    public void Search()
+    // In-Deck
+    public void Search() // add to hand
     {
         cScript.owner.ToHand(card, Player.LOC.DECK);
         foreach (GameObject view in GameObject.FindGameObjectsWithTag("uiCardViewer")) { Destroy(view); }
+        card.GetComponentInParent<GameUI>().ShowDeck();
     }
-    public void Recover()
+    public void Mill() // add to grave
+    {
+        cScript.owner.ToVoid(card, Player.LOC.DECK);
+        foreach (GameObject view in GameObject.FindGameObjectsWithTag("uiCardViewer")) { Destroy(view); }
+        card.GetComponentInParent<GameUI>().ShowDeck();
+    }
+    public void MillVoid() // add to void
+    {
+        cScript.owner.ToVoid(card, Player.LOC.DECK);
+        foreach (GameObject view in GameObject.FindGameObjectsWithTag("uiCardViewer")) { Destroy(view); }
+        card.GetComponentInParent<GameUI>().ShowDeck();
+    }
+    // In-Grave
+    public void Recover() // add to hand
     {
         cScript.owner.ToHand(card, Player.LOC.GRAVE);
         foreach (GameObject view in GameObject.FindGameObjectsWithTag("uiCardViewer")) { Destroy(view); }
+        card.GetComponentInParent<GameUI>().ShowGrave();
     }
-    public void Mill()
+    public void GraveShuffleBack() // add to deck
     {
-        cScript.owner.ToVoid(card, Player.LOC.DECK);
+        cScript.owner.ToDeck(card, Player.LOC.GRAVE);
         foreach (GameObject view in GameObject.FindGameObjectsWithTag("uiCardViewer")) { Destroy(view); }
+        card.GetComponentInParent<GameUI>().ShowGrave();
     }
-    public void MillVoid()
+    public void Void() // add to void
     {
-        cScript.owner.ToVoid(card, Player.LOC.DECK);
+        cScript.owner.ToVoid(card, Player.LOC.GRAVE);
         foreach (GameObject view in GameObject.FindGameObjectsWithTag("uiCardViewer")) { Destroy(view); }
+        card.GetComponentInParent<GameUI>().ShowGrave();
+    }
+    // Misc
+    public void Info()
+    {
+        Debug.Log("NAME: " + cScript.name + '\n' + "TEXT: " + cScript.cardText);
     }
 }
