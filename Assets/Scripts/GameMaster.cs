@@ -13,24 +13,18 @@ using UnityEngine.UIElements;
 public class GameMaster : MonoBehaviour
 {
 
-    public enum LOC {
-        HAND,
-        DECK,
-        GRAVE,
-        VOID,
-        NONE
-    }
+    public enum LOC { HAND, DECK, GRAVE, VOID, NONE }
     public GameObject p1, p2;
     Player p1script, p2script;
     public int turnCount;
     public GameObject turnPlayer;
-    public enum stage {
-        DRAW,
-        SETUP,
-        COMBAT
-    }
-    public stage turnStage = stage.DRAW;
+    public enum STAGE { DRAW, SETUP, COMBAT } public STAGE turnStage = STAGE.DRAW;
+    public TextAsset cardDB;
+    [System.Serializable] public class DBitem { public string serial, name, type, alignments, sp, rp, fastrp, text; }
+    [System.Serializable] public class DBitemList { public DBitem[] dbitems; }
+    DBitemList dbList = new DBitemList();
 
+    public string[] DBAfterSplit;
     void Start()
     {
         // easily store script components, cleans up code
@@ -49,6 +43,8 @@ public class GameMaster : MonoBehaviour
         p2script.DrawCard(5);
         // setup the turn
         turnCount = 0; turnPlayer = p2; NextTurn();
+
+        LoadCardDB();
         
     }
 
@@ -61,18 +57,18 @@ public class GameMaster : MonoBehaviour
     public void GoToDrawStage()
     {
         Player tpScript = turnPlayer.GetComponent<Player>();
-        turnStage = stage.DRAW;
+        turnStage = STAGE.DRAW;
         // reset RP and Draw card.
         tpScript.rp = turnCount*2;
         tpScript.DrawCard();
     }
     public void GoToSetupStage()
     {
-        turnStage = stage.SETUP;
+        turnStage = STAGE.SETUP;
     }
     public void GoToCombatStage()
     {
-        turnStage = stage.COMBAT;
+        turnStage = STAGE.COMBAT;
     }
     public void NextTurn()
     {
@@ -81,39 +77,6 @@ public class GameMaster : MonoBehaviour
         SwitchTurnPlayer();
         GoToDrawStage();
     }
-
-    void GenPlayerDecks_debug(GameObject player)
-    {
-        Sprite testPic = Resources.Load<Sprite>("Images/artwork/DarkProwler");
-        
-        for (int i = 0; i < 45; i++) {
-            // create new object, add components
-            GameObject card = new GameObject();
-            card.name = "Dark Prowler-" + i + " (P " + player.GetComponent<Player>().playerId + ")";
-            card.AddComponent<RectTransform>();
-            card.AddComponent<MonsterCard>();
-            card.AddComponent<SpriteRenderer>();
-            card.AddComponent<UnityEngine.UI.Image>();
-            
-            /* ASSIGN STATS */
-            card.GetComponent<Card>().controller = card.GetComponent<Card>().owner = player.GetComponent<Player>();
-            card.GetComponent<Card>().cardName = card.GetComponent<MonsterCard>().originalName = "Dark Prowler " + i + " (playerID: " + player.GetComponent<Player>().playerId + ")";
-            card.GetComponent<Card>().rPCost = card.GetComponent<MonsterCard>().originalRPCost = 2;
-            card.GetComponent<Card>().alignments.Add("Dark");
-            card.GetComponent<Card>().alignments.Add("Beast");
-            card.GetComponent<Card>().originalAlignments = card.GetComponent<Card>().alignments;
-            card.GetComponent<Card>().serial = "00000" + i;
-            card.GetComponent<MonsterCard>().sP = card.GetComponent<MonsterCard>().originalSP = 125;
-            card.GetComponent<MonsterCard>().isDestroyBattleImmune = card.GetComponent<MonsterCard>().isDestroyEffectImmune = card.GetComponent<MonsterCard>().isCountered = card.GetComponent<MonsterCard>().isTethered = false;
-            
-            card.GetComponent<SpriteRenderer>().sprite = testPic; // assignArtwork
-            card.GetComponent<UnityEngine.UI.Image>().sprite = testPic; // ui image
-            card.SetActive(false);
-            player.GetComponent<Player>().deck.Add(card);
-            card.transform.SetParent(player.transform);
-        }
-    }
-
     String[] LoadDeckFromFile(String deckname)
     {
         TextAsset deckFile = Resources.Load<TextAsset>(deckname);
@@ -142,7 +105,6 @@ public class GameMaster : MonoBehaviour
             card.transform.SetParent(player.transform);
         }
     }
-
     void GenDecksFromDB(GameObject player, String deckname)
     {
         String[] deckList = LoadDeckFromFile(deckname);
@@ -158,4 +120,31 @@ public class GameMaster : MonoBehaviour
 
         }
     }
+    void LoadCardDB(String dbName = "")
+    {
+        cardDB = Resources.Load<TextAsset>("Database/owccg_db");
+        ReadCSV();
+    }
+    void ReadCSV()
+    {
+        string[] data = cardDB.text.Split(new string[] {",", "\n"}, StringSplitOptions.None);
+        DBAfterSplit = data;
+        int tableSize = data.Length / 4 - 1;
+        dbList.dbitems = new DBitem[tableSize];
+
+        for (int i = 0; i < tableSize; i++) {
+            dbList.dbitems[i] = new DBitem();
+            dbList.dbitems[i].serial = data[8 * (i + 1)];
+            dbList.dbitems[i].name = data[8 * (i + 1) + 1];
+            dbList.dbitems[i].type = data[8 * (i + 1) + 2];
+            dbList.dbitems[i].alignments = data[8 * (i + 1) + 3];
+            dbList.dbitems[i].sp = data[8 * (i + 1) + 4];
+            dbList.dbitems[i].rp = data[8 * (i + 1) + 5];
+            dbList.dbitems[i].fastrp = data[8 * (i + 1) + 6];
+            dbList.dbitems[i].text = data[8 * (i + 1) + 7];
+
+            // ATTENTION!: 'Alignments' field has commas in it and are counted as separate items in the separation process!
+        }
+    }
+
 }

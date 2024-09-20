@@ -1,0 +1,106 @@
+﻿Serial,Name,Type,Alignments,SP,RP,Fast RP,Text
+100001,Dark Prowler,Monster,"Beast, Dark",125,2,-,(While you control no other monsters) This card’s original SP is doubled.
+100002,Scout Goblin,Monster,"Beast, Goblin",150,3,-,"(Optional: Sacrifice this card) Once a turn, look at cards in an opponents hand equal to the number of “Scout Goblin” you control. If you sacrificed this card, you may discard 1 of those cards."
+100003,Desert Longshooter,Monster,"Earth, Rogue, Warrior",200,4,-,(Once a turn) You can destroy 1 support on the board.
+100004,"Krieg, the Steel Opera",Monster,"Flying, Mech",380,7,-,"(Once a turn, sacrifice other cards in hand and/or on the board) Destroy the same number of cards in that opponents hand and/or board."
+100005,Bomb Wizard,Monster,"Fire, Magical",50,1,-,"1• (During the Combat Stage, you can Destroy this card) Destroy a support card on the board. 2• (Once a turn, you can destroy this card) An opponent loses 50HP."
+100006,Maus Isle Merchants,Monster,"Beast, Earth, Trader",150,2,-,Lore: The merry merchants of Maus isle! Port-goers respect them and their Crowe Ilse Colleagues with great admiration for their fair prices and interesting variety of items for sale.
+100007,Mudola the Dark Shaman,Monster,"Dark, Magical",100,2,-,(Pay 100HP and send this card to the Grave) Revive a monster with 100SP or less.
+100008,Eternal Guide of the Desert,Monster,"Earth, Magical",230,4,-,"Lore: Rumour has it, this wanderer has trekked through the Mortcalor Deserts for centuries."
+100009,Wandering Merc,Monster,"Rogue, Warrior",200,3,-,"Lore: ”Another day in sunny Vistaria. If I have to fall in battle, I’d like it to be on fields like these”"
+100010,Avian Scout,Monster,"Avian Warrior, Flying, Wind",70,1,-,"(When this card is destroyed in combat) You can search 1 “Avian Soldier” and if you control no monsters, summon it."
+100011,Avian Soldier,Monster,"Avian Warrior, Flying, Wind",140,2,-,"(When this card is Destroyed in combat) You can Search 1 “Avian Commander” and if you control no monsters, summon it."
+100012,Avian Commander,Monster,"Avian Warrior, Flying, Wind",230,5,-,"1• (If you control no other monsters) Once a turn, you can Revive 1 “Avian Scout” and/or 1 “Avian Soldier”. 2• (If you control only [Avian Warrior] monsters) [Avian Warrior] monsters gain 70SP."
+100013,"Captain Walker, Vigilante on the Waves",Monster,"Dark, Spirit, Water",300,6,-,"(Can only control 1 “Captain Walker, Vigilante on the Waves”) Monsters this card attacks have their SP Halved. Lore: The Dreadstorm, Captain Walker’s  ship is a fearful sight for unscrupulous sailors. Rumour has it, Walker himself has sailed it over 300 years."
+100014,Fire Lord Great Phoenix,Monster,"Fire, Flying, Warrior",400,7,-,"1• While this card is on the board, other [Fire] monsters gain 50SP. 2• (Once a turn, you can destroy another [Fire] monster you control) Revive this card, it loses 100SP"
+100015,Dryad,Monster,"Earth, Magical, Spirit",120,1,-,"Lore: A mystical spirit deep within the Etheria Forest, they are said to take the form of beautiful women for travellers. Shy, if you manage to coax them out and offer some food or water they’ll provide protection from malicious spirits."
+100016,Sand Shifter,Monster,"Beast, Earth",110,1,-,Lore: Travellers crossing the Mortcalor desert should take care not to disturb these spiked creatures. They can grow to upwards of 2.3M.
+100017,Abyssal Terror,Monster,"Beast, Dark, Water",190,3,-,"Lore: Residing at extremely low depths, this sea menace ensnares it’s prey with hundreds of tentacles, crushing anything undeath them."
+100018,Bog Snatcher,Monster,"Earth, Water",110,2,-,(While there is a [Water][Earth] monster on the board other than this card) This card can attack a player directly.
+100019,"Athenia, Heavenly Vanguard",Monster,"Celestial, Light, Warrior",290,5,-,"1• [Light] and/or [Celestial] monsters cannot be destroyed by combat. 2• Once per turn, you can summon up to 2 [Light] monsters from your hand whose total RP cost is 6 or less."
+100020,Divine Sky Archer,Monster,"Light, Warrior",200,4,-,(During the Combat Stage) This card is unaffected by opponent’s Support cards.
+100021,Ignited Guardian,Monster,"Fire, Warrior",220,4,-,Void any monster this card destroys in combat.
+100022,Crowe Ilse Couriers,Monster,"Beast, Trader, Wind",190,3,-,"Lore: High-flying, reliable and cheap couriers of various items and wares from all around the realm. Their partnership with the Maus Isle Merchant Guild has been a fruitful for many of the port’s inhabitants."
+100023,Haojiaowexie,Monster,"Beast, Dark",330,6,-,"(Control no other monsters) If this card Destroys a monster in combat, the damage becomes equal to that monster’s SP instead."
+100024,Crag Mantis,Monster,"Beast, Earth",250,3,-,"(Cannot attack) (Must Sacrifice a monster at the end of an opponents turn or this card is destroyed)"
+100025,Horde Shaman,Monster,"Dark, Magical",0,1,-,(When this card is sent to the Grave except by RP sacrifice) You can Summon 1 “Horde Shaman” from your hand or deck.
+100026,Cloud Lass,Monster,"Flying, Light",100,2,-,(When summoned) You can summon up to 2 “Cloud Squire from your hand.
+100027,Fiendish Berserker,Monster,"Dark, Demon, Warrior",0,4,-,"(Cannot be sacrificed. Must attack if able. If this card attacks a player directly destroy it) 1• Cannot be destroyed in combat. 2• Give control of this card to another player at the end of the Combat Stage."
+100028,Stealth Manta,Monster,"Beast, Water",90,2,-,(If an opponent does not control any [Water] monsters) This card can attack them directly.
+100029,Motherborg,Monster,"Earth, Mech",170,6,-,"(Can only control 1 “Motherborg”) 1• (If you control 4+ [Mech] monsters) This card’s SP is doubled. 2• (Whilst this card is on the board) 3+RP [Mech] monsters require 1 less RP to summon. 3• If a [Mech] monster would be destroyed, you can sacrifice another [Mech] monster instead."
+100030,Titanic Vines,Monster,"Earth, Sylvan",180,4,-,"1. (Once per turn)You can summon 1 “Sapling” token [Earth]|[Sylvan]|50SP. 2. If a [Sylvan] monster would be Destroyed, you can Sacrifice a “Sapling” token instead."
+100031,Sinister Flytrap,Monster,"Earth, Sylvan",0,3,-,"(You can sacrifice this card) Take control of 1 non-[Sylvan] monster, it cannot attack and destroy it at the end of the next turn."
+100032,Frost Fang,Monster,"Beast, Water",160,3,-,Monsters that attack this card cannot attack next turn.
+100033,Meditron,Monster,"Light, Mech",70,1,-,(When this card is Destroyed in combat) Gain HP equal to the monster’s SP that destroyed it.
+100034,Reef Guardian,Monster,"Earth, Water",190,3,-,(If this card is Destroyed by card effect) You can summon 2 “Coral Fragment” tokens [Water]|[Earth]|30SP. You take no damage from combat involving those tokens.
+100035,Jawon,Monster,"Beast, Earth",150,2,-,"Lore: Roaming the highlands of Talustanden, these beasts use their various teeth and spines to grind almost anything into a fine powder or paste."
+100036,Booster Node,Monster,"Light, Mech",50,1,-,"(You cannot sacrifice multiple “Booster Node”s to summon a monster) (If you only control 1RP monsters) You can Summon this card from your hand."
+100037,Turbo Node,Monster,"Light, Mech",100,2,-,(If you control no monsters) You can summon this from your hand.
+100038,"Belle, the Lucky Feline",Monster,"Beast, Earth, Spirit",160,3,-,"(You can only summon “Belle, the Lucky Feline once a turn) 1. (If this card is the only card in your hand and you control no monsters) You can summon this card, then draw 1. 2. (If this card is attacked) You may return it to your hand."
+100039,Torment Statue,Monster,"Demon, Wind",250,5,-,"(Cannot attack) (If this is the only monster you control) Opponents that control 3 or more monsters cannot activate support cards."
+100040,"Modd, Whimsical Warrior in the Sky",Monster,"Celestial, Light, Rogue",300,6,-,"(Can only be summoned by sacrificing 1 or more monsters, cannot be summoned by paying RP alone) Gains effects based on how many monsters were sacrificed for this card’s summon: 2+: Void any monster this card destroys in combat 3+: Gain HP equal to half a monster’s RP this card destroys in combat"
+100041,Puff Shroom,Monster,"Earth, Sylvan",30,2,-,A monster that destroys this card by battle cannot attack whilst it is on the board.
+100042,Ariz the Wingman,Monster,"Warrior, Wind",170,3,-,[Wind] Monsters gain 10SP for each [Wind] monster on the board.
+100043,Death Crawler Rafflesia,Monster,"Dark, Earth, Sylvan",210,4,-,"(Must sacrifice 1 or more [Sylvan] monsters to summon this card, cannot be summoned using RP alone) 1. Monsters with less than 200SP must attack this card if possible. 2. Cannot be destroyed in combat. 3. At the end of combat, an opponent takes damage to a monster’s SP that attacked this card."
+100044,Doom Tower Amorphophallus,Monster,"Dark, Earth, Sylvan",360,5,-,"(Can’t attack unless you control 2 or more other [Sylvan] monsters) (Must sacrifice 2 or more [Sylvan] monsters to summon this card, cannot be summoned using RP alone)1. Cannot be destroyed by combat. 2. Double all combat damage dealt by [Sylvan] monsters to your opponent."
+100045,Dread Star Stapelia,Monster,"Dark, Earth, Sylvan",400,6,-,"(Other monsters you control cannot attack) (Must sacrifice 3 or more [Sylvan] monsters to summon this card, cannot be summoned using RP alone) (If this card leaves the board, void it.) 1. Cannot be destroyed by card effects. 2. (Once a turn, sacrifice another [Sylvan] monster you control or in hand) Destroy 1 monster on the board."
+100046,Nobilis the Healer,Monster,"Light, Magical",175,4,-,"(Once per turn, you can discard 1 monster) Add 1 monster from your Grave to your Hand."
+100047,Ancient Machine Lapistere,Monster,"Fire, Mech",325,6,-,"Lore: Deep within Bloodburne mountain, the sound of rocks and stone being crushed within this immense machine echo. It is estimated that it churns out over 3,000KG of rare minerals a week!"
+100048,Storm Sovereign - Zephyrkhan,Monster,"Beast, Flying, Wind",425,8,-,"(If this is the only monster you control) On summon, summon up to 4 “Hurricanadier” tokens [Wind][Flying]175SP. (Once a turn, you can destroy a Hurricanadier”) return 1 on the board to the hand."
+100049,Storm Bird,Monster,"Flying, Wind",150,3,-,(On Summon) Draw 1.
+100050,Aeroshocker,Monster,"Mech, Wind",240,5,-,Non-[Wind] and/or Non-[Mech] monsters cannot attack the turn they are summoned.
+100051,Rescue Warrior,Monster,Warrior,130,2,-,"(When a monster you control is attacked) You can return that monster to your hand and then summon this card, also this card is attacked instead."
+100052,Cloud Lad,Monster,"Flying, Light, Rogue",200,4,-,"(On summon, pay up to 3RP) You can search “Cloud Lass”(s) up to the number of RP paid."
+100053,Undying Lich,Monster,"Magical, Undead",190,3,-,"(If this card is destroyed in combat, you can pay 3RP) Revive this card. (At the end of the turn, if this card was revived this turn) Void this card."
+100054,"Nekrol, Phantom Paladin",Monster,"Dark, Undead, Warrior",200,7,-,"(Cannot be summoned unless by card effect) 1• (You can discard this card) A [Undead] monster you control gains 100SP. 2• (When a [Warrior] monster you control is destroyed in combat) You can revive this card but void it when it leaves the board."
+100055,Magma Wyvern,Monster,"Beast, Dragon, Fire",350,7,-,"(Can only control 1 “Magma Wyvern”) 1• (On summon) Deal 50 damage to opponents for each [Fire] monster you control. 2• (When a [Fire] monster) is destroyed, you can destroy this card) Revive that monster."
+100056,Torrent Wyvern,Monster,"Dragon, Magical, Water",350,7,-,"(Can only control 1 “Torrent Wyvern”) 1• You take no combat damage involving [Water] monsters. 2• (If this card is destroyed in combat) Summon “Ice shard” tokens [Water]|130SP up to the number of monsters an opponent controls. Destroy any tokens on the field at the end of your next turn and lose HP equal to each “Ice Shard”s SP when it was destroyed."
+100057,Dendric Wyvern,Monster,"Dragon, Earth, Sylvan",350,7,-,"(Can only control 1 “Dendric Wyvern”) 1• (If you control 2+ [Sylvan] monsters, you can Destroy one of those monsters) Summon this card from your hand. 2• (If you have 3 or more [Sylvan] monsters in your hand, you can Discard 2 of those monsters) Revive this card."
+100058,Tornado Wyvern,Monster,"Dragon, Flying, Wind",350,7,-,"(Can only control 1 “Tornado Wyvern”) 1• (Once a turn, you can discard monsters who’s RP equals exactly 7) Destroy 1 card on the board and 1 in an opponents hand. 2• [Wind] Monsters are shuffled into the deck when destroyed."
+100059,Radiant Wyvern,Monster,"Celestial, Dragon, Light",350,7,-,"(Can only control 1 “Radiant Wyvern”) 1• You take no combat damage involving [Light] monsters. 2• If a [Light] monster would be destroyed, you can sacrifice this card on board instead."
+100060,Necro Wyvern,Monster,"Dark, Dragon, Undead",350,7,-,"(Can only control 1 “Necro Wyvern”) 1• Void any monster this card destroys in combat. 2• (At the start of the turn, if you control no monsters) You can revive this card, then half it’s SP."
+100061,Dragon Glass Helm,Support,Tether,-,3,6,"Tether Tethered monster’s controller takes no combat damage involving tethered monster."
+100062,Mystic Bow,Support,Tether,-,2,4,"Tether Tethered monster loses 200SP and can attack players directly."
+100063,Blessed Shield of the Redeemer,Support,Tether,-,4,5,"Tether If the tethered monster would be destroyed, this card can be destroyed instead."
+100064,Cursed Dagger of the Corrupter,Support,Tether,-,4,5,"Tether Tethered monster gains 120SP and cannot attack directly."
+100065,Spirit’s Gift,Support,,-,4,8,Draw 2.
+100066,Reincarnation,Support,,-,4,8,Revive 1 Monster.
+100067,Pruning,Support,,-,2,4,Send 1 [Sylvan] card from your deck to your grave.
+100068,Underdogfight,Support,,-,6,10,(If you do not control any 3RP or higher monsters) Summon 1 2RP or less monster from your deck.
+100069,Psychic Radar,Support,,-,1,2,(Sacrifice a [Spirit] monster) An opponent must play with their hand revealed until the end of their next turn.
+100070,Rebirth Crucible,Support,,-,3,4,Add up to 3 [Fire] monsters from your grave to your hand.
+100071,Punish,Support,,-,4,8,Destroy 1 monster on the board.
+100072,Barrage,Support,,-,4,8,Destroy 1 support on the board.
+100073,Double Agent,Support,,-,4,8,Take control of an opponent’s monster until the end of the turn.
+100074,Faustian Bargain,Support,,-,0,3,"Gain 3RP, your RP next turn is reduced by 6."
+100075,Smuggler,Support,,-,4,8,"Draw 3, discard 2."
+100076,Divine Striker,Support,,-,4,7,(An opponent has more monsters on board) A monster’s SP you control becomes equal to the highest opponent’s monster’s SP. That monster cannot be destroyed in Combat this turn.
+100077,Unbreakable Fighting Spirit,Support,,-,6,10,"(When a monster is destroyed in combat, void cards in your Grave equal to that monster’s RP) Revive that monster, increase it’s SP by the SP of the monster that destroyed it."
+100078,Savage Instinct,Support,Fixed,-,4,6,"(If you have support cards in your grave, destroy this card.) 1. (Up to 3 times a turn) If you draw a monster card, you can reveal it, if the RP cost is lower than the number of cards in your hand and on board, summon it. 2. (Once a turn when an 8 or more RP monster is summoned) You can draw 1."
+100079,Grave Mistake,Support,,-,4,3,"(Draw 1 card) Your opponent declares either Monster or Support. Reveal the card, if the card is of the declared type, draw 1. If it is not, discard it then take damage equal to the RP Cost x 50."
+100080,Judgement of Babel,Support,,-,6,6,(If an opponent has 5 or more cards on the board) Destroy all monsters they control.
+100081,"Epidemic Winds ",Support,Fixed,-,3,0,"Fixed (Cannot be Fast Cast. Pay this cards RP cost during your Draw Stage or it is Destroyed). During the Draw Stage, the turn player loses 20HP for each card in their hand. If you have no cards in your hand, this damage is doubled."
+100082,Ethereal Cocktail,Support,,-,0,0,"(Currently have 0RP. Can only Cast “Ethereal Cocktail” once a turn.) Send support cards from your Deck to Grave (Max 5) and gain 1 RP for each card sent. If you control no monsters, gain 2 RP per card instead."
+100083,Panic Button,Support,,-,2,3,"(Return all monsters you control to the hand) Halve all damage taken during the Combat Stage this turn. If you returned 3 or monsters, take 0 damage instead."
+100084,Elemental Infusion,Support,Tether,-,2,2,"Tether Tethered monster gains the [Dark], [Earth], [Fire], [Light], [Water] or [Wind] alignment."
+100085,Corrosion,Support,Fixed,-,3,3,"Fixed Players lose 50HP at the start of the Setup Stage."
+100086,Oath of Suffering,Support,,-,0,0,"(Cannot be Fast Cast. Must be activated at the start of your Setup Stage) At the start of each Draw Stage, the previous turn player can pay multiples of 20HP, then they can reduce the current turn player’s RP by 1 for every multiple paid."
+100087,Martyrdom,Support,,-,4,5,(When a card would destroy a card/cards; sacrifice 1 monster) Counter that card.
+100088,Sword Exchange,Support,,-,2,4,Move a tether to another card.
+100089,Backfire,Support,,-,3,6,(When a player would draw a card/cards) They discard the same number of cards instead.
+100090,Imposter,Support,,-,4,7,"Change a monster you control’s name, alignments and SP to that of an opponent’s monster."
+100091,Extreme Flood,Support,,-,5,8,"(Control 2+ monsters including 1 [Water] and 1 [Earth] monster, you cannot attack this turn) Destroy cards on the board up to the number of monsters you control."
+100092,Power Healing,Support,,-,3,4,Gain HP equal to half the SP of the monster with the highest SP on the board.
+100093,Thaumic Forest,Support,"Dark, Earth, Fixed, Magical",-,3,3,"Fixed (Can only control 1 “Thaumic Forest”) While on the board; all [Dark], [Magical] and [Spirit] Monsters gain 100SP."
+100094,South Docks,Support,"Fixed, Goblin, Trader, Water",-,3,3,"Fixed (Can only control 1 “South Docks”) While on the board; all [Water], [Trader] and [Goblin] Monsters gain 100SP."
+100095,Sunset Meadows,Support,"Beast, Fixed, Flying, Wind",-,3,3,"Fixed (Can only control 1 “Sunset Meadows”) While on the board; all [Wind], [Beast] and [Flying] Monsters gain 100SP."
+100096,Burning Dunes,Support,"Fire, Fixed, Rogue, Warrior",-,3,3,"Fixed (Can only control 1 “Burning Dunes”) While on the board; all [Fire], [Warrior] and [Rogue] Monsters gain 100SP."
+100097,Doppelganger,Support,,-,5,10,"(Control a monster with 300SP or less) Summon 1 “Doppelganger” token, it’s Alignments and SP are the same as the monster chosen."
+100098,Dark Rebirth,Support,,-,3,5,(Pay HP equal to a [Dark] monster’s SP in your grave) Revive that monster.
+100099,Quagmire,Support,Fixed,-,2,6,"Fixed Non-[Water] or [Earth] monsters cannot attack the turn they are summoned."
+100100,Victory or Death!,Support,,-,10,0,"(Can only activate 1 “Victory or Death!” per game, cannot be Fast Cast, must have no cards in your hand or on your board and 10+ cards in your grave) Void all cards in the hands, on the board and in the grave, then each player summons 1 monster from their deck (ignoring restrictions) with an RP cost equal or lower to half of the number of voided cards they own (round up). No other cards can be played this turn and you can draw cards up to the number of monsters on the board at the end of the turn."
+100101,Sapling Token,Token,"Earth, Sylvan",50,-,-,"(This card can be used as any token, change it’s name, RP, SP and Alignments appropriately)"
+100102,Coral Fragment Token,Token,"Earth, Water",30,-,-,"(This card can be used as any token, change it’s name, RP, SP and Alignments appropriately)"
+100103,Hurricanadier Token,Token,"Flying, Wind",175,-,-,"(This card can be used as any token, change it’s name, RP, SP and Alignments appropriately)"
+100104,Ice Shard Token,Token,Water,130,-,-,"(This card can be used as any token, change it’s name, RP, SP and Alignments appropriately)"
+100105,Doppelganger Token,Token,,,-,-,"(This card can be used as any token, change it’s name, RP, SP and Alignments appropriately)"

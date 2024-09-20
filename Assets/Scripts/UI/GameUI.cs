@@ -16,7 +16,6 @@ public class GameUI : MonoBehaviour
     public GameObject gameMaster, player, op;
     public Player pScript, opScript;
     public GameObject pHPRP, oHPRP, cardView, cardOptions, cardOptTest;
-
     public bool playerIsViewingCards = false;
     public bool playerIsViewingCardOptions = false;
 
@@ -31,7 +30,6 @@ public class GameUI : MonoBehaviour
         UpdateHPMP(pScript, true);
         UpdateHPMP(opScript, false);
     }
-    
     public void Update()
     {
         
@@ -126,9 +124,9 @@ public class GameUI : MonoBehaviour
         options.GetComponent<CardOptions>().card = card;
         options.GetComponent<CardOptions>().cScript = card.GetComponent<Card>();
         options.transform.SetParent(card.transform);
+        options.transform.localScale = new UnityEngine.Vector3(1f, 1f, 1f);
          // set the options for the buttons depending on location
         SetButtonInCardOptions(options.GetComponent<CardOptions>(), loc, true);
-        options.transform.localScale = new UnityEngine.Vector3(1f, 1f, 1f);
         // align the panel from the TOP MIDDLE (like in the editor)
         options.GetComponent<RectTransform>().anchorMin = new UnityEngine.Vector2(0f, 0f);
         options.GetComponent<RectTransform>().anchorMax = new UnityEngine.Vector2(1f, 1f);
@@ -145,7 +143,6 @@ public class GameUI : MonoBehaviour
         });
         options.SetActive(false);
     }
-
     void SetButtonInCardOptions(CardOptions opt, LOC loc, bool isMonster)
     {
         if (isMonster) { opt.b_activate.SetActive(false); opt.b_activatefromdeck.SetActive(false); } // remove supportcard options
@@ -172,4 +169,5 @@ public class GameUI : MonoBehaviour
             default: Debug.Log("SetButtonInCardOptions switch(loc) default case reached"); break;
         }
     }
+
 }
